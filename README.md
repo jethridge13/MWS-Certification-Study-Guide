@@ -31,6 +31,15 @@ The topics for the guide are taken from the official study guide found [here](ht
     * `@import` is possible but discouraged
     * Using `min-device-width` is strongly discouraged.
       * `min-width` is based on browser window. `min-device-width` is screen size. This is often not reported correctly. Also does not support screen resizing.
+    * How to choose breakpoints
+      * Don't define breakpoints based on device classes
+      * Do create breakpoints based on content
+      * Design for the smallest screen size you are supporting first
+        * Start small and then work up, adding breakpoints as more screen size is added
+      * Keep lines of text to 70-80 lines max
+      * Pick minor breakpoints when necessary
+      * Optimize text for reading
+      * *Never* hide content just because you can't fit it on screen
       
 ### [A Complete Guide to Flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
 
