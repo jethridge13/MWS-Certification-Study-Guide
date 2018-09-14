@@ -42,6 +42,51 @@ The topics for the guide are taken from the official study guide found [here](ht
       * *Never* hide content just because you can't fit it on screen
       
 ### [A Complete Guide to Flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
+ * Background
+   * Give the container the ability to alter its items' width, height, and order to best fill the available space.
+ * Basics & Terminology
+   * **main axis** - The primary axis along which flex items are laid out. Depends on `flex-direction` property
+   * **main-start | main-end** - Items are placed within the container from `main-start` to `main-end`
+   * **main size** - The items' width or height, whichever is the main dimension
+   * **cross axis** - Perpendicular to the `main axis`
+   * **cross-start | cross-end** - Flex lines are filled with items and placed into the container from `cross-start` to `cross-end`
+   * **cross size** - The width or height of a flex item, whichever is in the cross dimension
+ * Properties for the Parent (flex container)
+   * display - `display: flex /* or infline-flex */` Defines a flex container.
+   * flex-direction - `flex-direction: row | row-reverse | column | column-reverse;` Establishes the main axis and direction.
+     * Default is row, left to right. 
+   * flex-wrap - `flex-wrap: nowrap | wrap | wrap-reverse;` Determine overflow properties of the container
+     * Default is nowrap, all items will be on one line.
+     * wrap will wrap on multiple lines, top to bottom. wrap-reverse is the same except bottom to top.
+   * flex-flow - `flex-flow: <'flex-direction'> || <'flex-wrap'>` Shorthand for flex-direction and flex-wrap properties
+   * justify-content - `justify-content: flex-start | flex-end | center | space-between | space-around | space-evenly;`
+   Determines how the content is spaced along the main axis. Distributes free space.
+     * flex-start (Default) Items are packed toward the start line
+     * flex-end: Items are packed toward the end line
+     * center: Items are centered along the line
+     * space-between: Items are evenly distributed in the line, first item on start line, last item on end line
+     * space-around: Items are distributed with equal space on both sides.
+     * space-evenly: Items are distributed so that the spacing between any two items is equal.
+     
+   ![justify-content image](https://css-tricks.com/wp-content/uploads/2013/04/justify-content-2.svg)
+   * align-items `align-items: flex-start | flex-end | center | baseline | strecth;` Defines how items are laid out along the cross axis on the current line.
+     * flex-start (Default) Top margin placed on the cross-start line
+     * flex-end: Bottom margin placed on the cross-end line
+     * center: Items centered on the cross-axis
+     * baseline: Baseline of items aligned
+     * stretch: Stretch to fill the container
+     
+   ![align-items image](https://css-tricks.com/wp-content/uploads/2014/05/align-items.svg)
+   * align-content `align-content: flex-start | flex-end | center | space-between | space-around | strecth;`
+   Defines how extra space in the cross-axis is handled. 
+   Has no effect if there is only one line of flex items.
+     * flex-start: Lines packed to the start of the container
+     * flex-end: Lines packed to the end of the container
+     * center: Lines packed to the center of the container
+     * space-between: Lines evenly distributed with the first line at the start and the last one at the end.
+     * space-around: Lines evenly distributed with equal space around each line
+     
+   ![align-content image](https://css-tricks.com/wp-content/uploads/2013/04/align-content.svg)
 
 ### [Using media queries](https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries/Using_media_queries)
 
