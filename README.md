@@ -1,6 +1,27 @@
 # MWS-Certification-Study-Guide
 
-## About
+## Table of Contents
+
+* [About](#About)
+* [Basic Website Layout and Styling](#Basic)
+  * [Responsive Web Design](#ResponsiveWebDesign)
+  * [A Complete Guide to Flexbox](#Flexbox)
+  * [Using media queries](#MediaQueries)
+  * [Video and audio content](#VideoAndAudio)
+  * [Responsive Images by Google](#ResponsiveImages)
+  * [Supporting both TouchEvent and MouseEvent](#TouchAndMouse)
+  * [Touch events](#Touch)
+* [Front End Networking](#Front)
+* [Accessibility](#A11y)
+* [Progressive Web Apps](#PWA)
+* [Performance Optimization and Caching](#Perf)
+* [Testing and Debugging](#Test)
+* [ES2015 Concepts and Syntax](#ES2015)
+* [Mobile Web Forms](#Forms)
+
+---
+
+## <a name="About">About</a>
   
 This repo is a collection of my personal notes taken while studying for [Google's Mobile Web Specialist Certification exam](https://developers.google.com/training/certification/mobile-web-specialist/).
 I am posting it here for several reasons. 
@@ -14,8 +35,8 @@ The topics for the guide are taken from the official study guide found [here](ht
 
 ---
 
-## Basic Website Layout and Styling
-### [Responsive Web Design](https://developers.google.com/web/fundamentals/design-and-ux/responsive/)
+## <a name="Basic">Basic Website Layout and Styling</a>
+### <a name="ResponsiveWebDesign">[Responsive Web Design](https://developers.google.com/web/fundamentals/design-and-ux/responsive/)</a>
  * Design to cover screen sizes of many different devices
   * Always include meta viewport tag
     * Control the width and scaling of the browser’s viewport
@@ -41,7 +62,7 @@ The topics for the guide are taken from the official study guide found [here](ht
       * Optimize text for reading
       * *Never* hide content just because you can't fit it on screen
       
-### [A Complete Guide to Flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
+### <a name="Flexbox">[A Complete Guide to Flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)</a>
  * Background
    * Give the container the ability to alter its items' width, height, and order to best fill the available space.
  * Basics & Terminology
@@ -107,26 +128,26 @@ The topics for the guide are taken from the official study guide found [here](ht
     * Due to evolving Flex spec, prefixes are required to support the widest range of browser.
     * Autoprefixer can manage this automatically    
 
-### [Using media queries](https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries/Using_media_queries)
+### <a name="MediaQueries">[Using media queries](https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries/Using_media_queries)</a>
 
-### [Video and audio content](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Video_and_audio_content)
+### <a name="VideoAndAudio">[Video and audio content](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Video_and_audio_content)</a>
 
-### [Responsive Images by Google](https://www.udacity.com/course/responsive-images--ud882)
+### <a name="ResponsiveImages">[Responsive Images by Google](https://www.udacity.com/course/responsive-images--ud882)</a>
 
-### [Supporting both TouchEvent and MouseEvent](https://developer.mozilla.org/en-US/docs/Web/API/Touch_events/Supporting_both_TouchEvent_and_MouseEvent)
+### <a name="TouchAndMouse">[Supporting both TouchEvent and MouseEvent](https://developer.mozilla.org/en-US/docs/Web/API/Touch_events/Supporting_both_TouchEvent_and_MouseEvent)</a>
 
-### [Touch events](https://developer.mozilla.org/en-US/docs/Web/API/Touch_events)
+### <a name="Touch">[Touch events](https://developer.mozilla.org/en-US/docs/Web/API/Touch_events)</a>
       
-## Front End Networking
+## <a name="Front">Front End Networking</a>
 
-## Accessibility
+## <a name="A11y">Accessibility</a>
 
-## Progressive Web Apps
+## <a name="PWA">Progressive Web Apps</a>
 
-## Performance Optimization and Caching
+## <a name="Perf">Performance Optimization and Caching</a>
 
-## Testing and Debugging
+## <a name="Test">Testing and Debugging</a>
 
-## ES2015 Concepts and Syntax
+## <a name="ES2015">ES2015 Concepts and Syntax</a>
 
-## Mobile Web Forms
+## <a name="Forms">Mobile Web Forms</a>
