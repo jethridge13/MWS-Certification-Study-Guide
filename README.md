@@ -77,6 +77,7 @@ The topics for the guide are taken from the official study guide found [here](ht
      * stretch: Stretch to fill the container
      
    ![align-items image](https://css-tricks.com/wp-content/uploads/2014/05/align-items.svg)
+   
    * align-content `align-content: flex-start | flex-end | center | space-between | space-around | strecth;`
    Defines how extra space in the cross-axis is handled. 
    Has no effect if there is only one line of flex items.
@@ -87,6 +88,24 @@ The topics for the guide are taken from the official study guide found [here](ht
      * space-around: Lines evenly distributed with equal space around each line
      
    ![align-content image](https://css-tricks.com/wp-content/uploads/2013/04/align-content.svg)
+     
+ * Properties for the Children
+    * order `order: <integer>;` The order in which the item will appear in the list.
+    * flex-grow `flex-grow: <number>;` The ratio for how much space the item should take up.
+      * Defaults to 0
+      * All items set to 1 will attempt to share all space evenly
+      * An item with flex-grow of 2 will attempt to take up twice the amount of space as an item using 1
+    * flex-shrink `flex-shrink: <number>;` Defines the ability to shrink if necessary. Defaults to 1.
+    * flex-basis `flex-basis: <length> | auto;` Defines the default size of an element before the remaining space is distributed.
+    
+    ![flex-basis image](https://www.w3.org/TR/css-flexbox-1/images/rel-vs-abs-flex.svg)
+    
+    * flex `flex: none | [ <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> ]` Shorthand for flex-grow, flex-shrink, and flex-basis combined.
+    * align-self `align-self: auto | flex-start | flex-end | center | baseline | stretch;` Overrides default alignment set by parent's `align-items` value.
+    
+  * Prefixing Flexbox
+    * Due to evolving Flex spec, prefixes are required to support the widest range of browser.
+    * Autoprefixer can manage this automatically    
 
 ### [Using media queries](https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries/Using_media_queries)
 
