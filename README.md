@@ -129,6 +129,62 @@ The topics for the guide are taken from the official study guide found [here](ht
     * Autoprefixer can manage this automatically    
 
 ### <a name="MediaQueries">[Using media queries](https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries/Using_media_queries)</a>
+ * Used to modify site or app depending on a device's general type or specific characteristics
+ * Media Type
+   * all - Suitable for all devices.
+   * print - Intended for page viewed on print preview mode
+   * screen - Intended for screens
+   * speech - Intended for speech synthesizers
+ * Media Features
+   * width - Width of viewport
+   * height - Height of viewport
+   * aspect-ratio - Width-to-height aspect ratio of the viewport
+   * orientation - Orientation of the viewport
+   * resolution - Pixel density of the output device
+   * scan - Scanning process of the output device
+   * grid - Grid or bitmap screen?
+   * update - Devices update frequency
+   * overflow-block - How does the output device handle content that overflows the viewport along the block axis?
+   * overflow-inline - Can content that overflows the viewport along the inline axis be scrolled?
+   * color - Number of bits per color component of output device
+   * color-gamut - Approximate range of colors that are supported by the user agent and output device
+   * color-index - Number of entries in the output device's color lookup table
+   * display-mode - The display mode of the application as specified in the web app manifest's `display` member
+   * monochrome - Bits per pixel in the output device's monochrome frame buffer
+   * inverted-colors - Is the user agent or underlying OS inverting colors?
+   * pointer - Is the pimrary input mechanism a pointing device?
+   * hover - Does the primary input mechanism allow the user to hover over elements?
+   * any-pointer - Is any input mechanism a pointing device?
+   * any-hover - Does any available input mechanism allow the user to hover elements?
+   * light-level - Light level of the environment
+   * prefers-reduced-motion - The user prefers less motion on the page
+   * prefers-reduced-transparency - The user prefered reduced transparency
+   * prefers-contrast - Detects if the user has requested the system increase or decrease the amount of contrast between adjacent colors
+   * prefers-color-scheme - Detect if the user prefers a light or dark color scheme
+   * scripting - Detects whether scripting is available
+ * Logical Operators
+   * and - Used for combining multiple media features or joining media features and media types
+   * not - Negates a media query
+   * only - Used to apply a style only if an entire query matches, useful for preventing older browsers from applying selected styles
+   * , - Combine multiple media queries into a single rule
+ * Targeting media types
+   * `@media print {...}
+   * `@media screen, print {...}
+ * Targeting media features
+   * `@media (hover: hover) {...}`
+   * `@media (max-width: 1280px) {...}`
+ * Creating complex media queries
+   * `@media (min-width: 30em) and (orientation: landscape) {...}`
+ * Testing for multiple queries
+   * `media (min-height: 680px), screen and (orientation: portrait) {...}`
+ * Inverting a query's meaning
+   * `@media not all and (monochrome) {...}` is evaluated as `@media not (all and monochrome)) {...}`
+ * Improving compatibility with older browsers
+   * `only` keyword prevents older browsers that do not support media queries with media features from applying given styles.
+   * `@media (only screen and (color)) {...}`
+ * Use `not()` around a media feature to negate that feature in the query
+ * Test for multiple features with `or`
+   * `@media (not (color)) or (hover) {...}`
 
 ### <a name="VideoAndAudio">[Video and audio content](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Video_and_audio_content)</a>
 
