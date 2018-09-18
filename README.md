@@ -368,6 +368,25 @@ Note: These notes are my notes taken while taking the Mobile Web Specialist Nano
 
 ### <a name="TouchAndMouse">[Supporting both TouchEvent and MouseEvent](https://developer.mozilla.org/en-US/docs/Web/API/Touch_events/Supporting_both_TouchEvent_and_MouseEvent)</a>
 
+* Event firing
+  * The browser may fire both touch events and mouse events in response to the same user input
+  * If the browser fires both touch and mouse events because of a single user input, the browser *must* fire a `touchstart` event before any mouse events.
+    * Calling `preventDefault()` in a touch handler will thus prevent event propagation and stop the mouse event
+* Event order
+  * The following order is typical, according to standard
+    * `touchstart`
+    * `touchmove` (if applicable)
+    * `touchend`
+    * `mousemove`
+    * `mousedown`
+    * `mouseup`
+    * `click`
+  * If `touchstart`, `touchmove`, or `touchend` is cancelled during an interaction, no mouse or click events will be fired.
+  Thus, the sequence of events would be as follows:
+    * `touchstart`
+    * `touchmove` (if applicable)
+    * `touchend`
+
 ### <a name="Touch">[Touch events](https://developer.mozilla.org/en-US/docs/Web/API/Touch_events)</a>
       
 ## <a name="Front">Front End Networking</a>
