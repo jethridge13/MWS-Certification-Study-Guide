@@ -228,6 +228,143 @@ The topics for the guide are taken from the official study guide found [here](ht
    * `<track kind="subtitles | captions | descriptions" src="example_en.vtt" srclang="en">`
 
 ### <a name="ResponsiveImages">[Responsive Images by Google](https://www.udacity.com/course/responsive-images--ud882)</a>
+Note: These notes are my notes taken while taking the Mobile Web Specialist Nanodegree course by Udacity, which includes these courses as part of the program.
+* Landscape and Portrait
+  * “Don’t assume the viewport size will always stay the same”
+* Less Well Known CSS Units
+  * vh - viewport height - 100vh = 100% height
+  * vw - viewport width
+  * vmin - viewport height or width, whatever is less
+  * vmax - viewport height or width, whatever is greater
+* Raster and Vector
+  * Raster - photographs and other images in pixels
+  * Vector - Adobe illustrator, vector graphics, svg
+  * Vector image can be any size
+* Quiz: Raster or Vector Banner?
+  * Answer: Vector - scales without quality degredation
+* Quiz: Raster and Vector Identification
+  * Answer: 
+    * Chrome Logo: Vector
+    * Kitten Photo: Raster
+    * Flag of Mexico: Vector
+    * Repeated Background: Vector
+    * Gradient Background: Vector
+* File Formats
+  * JPEG - Artifacting along edges
+    * Use for pictures
+  * Vector - smaller file sizes
+    * Use whenever possible
+    * If not possible, use PNG
+* Quiz: Spot the Differences
+  * Answer: Actual (natural) size
+  * Avoid sending images that have resolutions higher than their display resolution
+    * Caveat: High DPI displays, future lesson
+* Quiz: Spot the DIfferences 2
+  * Answer: Compression Level
+* Image Compression
+  * PageSpeed Insights - Google Dev benchmarker
+    * Can even use in terminal
+  * Grunt-pagespeed also available
+* Quiz: Project Part 1
+  * Responsive Blog Project Part 1
+  * Code notes
+    * Set body max-width to 800px, img max-width to 100%
+    * Gruntfile set images to 800px, quality 50
+* Performance
+  * Aim to reduce the number of image requests
+  * Need to reduce file sizes and number of requests
+* Text Problems
+  * Text and graphics - overlay text on pictures if necessary
+  * Use fonts to have good design without graphics
+* CSS Techniques
+  * CSS for shadows
+  * Gradients
+  * Rounded corners
+  * Animations
+  * Processing and rendering cost for cool effects, take into consideration
+* CSS background images
+  * CSS as background to avoid using a big image
+  * CSS transition to resize image cropping
+  * Display images based on viewport size
+* Quiz: CSS background image techniques
+  * Answer
+    * Cover: The image is sized so that it is as small as possible while still completely filling its container.
+    * Contain: The image is sized so that it is as large as possible while still being completely visible inside its container.
+* Symbol characters
+  * Use symbols from fonts instead of images
+* Quiz: Unicode Treble Clef
+  * Charset must be set to UTF-8 to use unicode character set
+  * Answer: &#119070; (Treble clef HTML code)
+  * Copy and paste the symbol instead of the code when possible - easier supported
+* Icon Fonts
+  * Zocial - icon font
+  * Fonts which are just lists of symbols
+  * Resizable, recolorable, reshadowable
+* Inlining images with SVG and data URIs
+  * SVG are awesome
+  * Data-URI: inline included image
+  * Crazy code but reduces HTTP requests
+* Quiz: Strategy Quiz 1
+  * Answer: vector, external or inline
+    * Inline because shape is simple
+    * External because it can be reused and cached
+* Quiz: Strategy Quiz 2
+  * Answer: .jpg, inline or external
+    * Inline reduces requests
+* Quiz: Strategy Quiz 3
+  * Answer: Vector, external
+    * External for use on multiple pages, caching
+* Quiz: Strategy Quiz 4
+  * .svg, external
+* Quiz: Project Part 2
+  * utf-8 must be all lower case in meta tag
+  * Weloveiconfonts.com imported in CSS
+* Srcset
+  * srcset - alternate photo serving based on variable
+  * window.devicePixelRatio
+  * If srcset isn’t supported, uses default src instead
+  * W unit - use this picture based on this width
+* Sizes Attribute
+  * Browser does not know image display size - CSS is parsed after request
+  * Sizes attribute tells the browser the image display size
+  * Sizes attribute can include media query-like variables
+* Quiz: srcset Quiz
+  * srcset using Device Pixel Ratio
+    * `<img src=”src_path” srcset=”src_path nx, …”>` where n is the DPR
+    * `<img src="image_2x.jpg" srcset="image_2x.jpg 2x, image_1x.jpg 1x" alt="a cool image">`
+    * src is included as a fallback
+  * srcset using Image Width
+    * `<img src=”src_path” srcset=”src_path nw, …”>` where n is the width of the image in pixels
+    * `<img src="image_200.jpg" srcset="image_200.jpg 200w, image_100.jpg 100w" alt="a cool image">`
+    * src is included as a fallback
+* Quiz: srcset and sizes
+  * Use the sizes tag like a media query to tell the browser how the image will be displayed relative to the viewport width
+  * ```HTML 
+  
+      <img  src="images/great_pic_800.jpg"
+      sizes="(max-width: 400px) 100vw, (min-width: 401px) 50vw"
+      srcset="images/great_pic_400.jpg 400w, images/great_pic_800.jpg 800w"
+      alt="great picture">
+      
+    ```
+    
+  * sizes defaults to 100vw if not found
+  * Answer note: Second media query note required because defaults to 100vw if not specified
+* The Picture Element
+  * Picture element can provide alternate sources for image files depending on browser support
+    * For example, webp and jpeg files
+  * Include img element inside picture element as a fallback
+* The Full Monty
+  * Picture element can be used with media queries
+  * Picturefill polyfill adds in srcset and other cool things
+* Accessibility
+  * Use alt tags for support with screen readers
+* Quiz: Accessibility Promise
+  * Responsibility matters!
+* Quiz: Project Part 3
+  * Different crops for different browser widths
+  * Picture element has two children: source and img, img is always last, is fallback
+  * source can use srcset
 
 ### <a name="TouchAndMouse">[Supporting both TouchEvent and MouseEvent](https://developer.mozilla.org/en-US/docs/Web/API/Touch_events/Supporting_both_TouchEvent_and_MouseEvent)</a>
 
