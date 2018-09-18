@@ -188,6 +188,45 @@ The topics for the guide are taken from the official study guide found [here](ht
 
 ### <a name="VideoAndAudio">[Video and audio content](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Video_and_audio_content)</a>
 
+ * Audio and video on the web
+   * `<audio>` and `<video>` tags introduced in HTML5
+ * The `<video>` element
+   * Example
+     * ```HTML
+       <video src="rabbit320.webm" controls>
+          <p>Your browser doesn't support HTML5 video. Here is a <a href="rabbit320.webm">link to the video</a> instead.</p> 
+       </video>
+ 
+       ```
+ 
+   * src - Path to the video
+   * controls - Includes the browser's control interface. If not included, controls must be implemented using the JavaScript API
+   * Fallback paragraph - Will be displayed if the browser does not support the `<video>` element
+   * Check browser compatiblity with video file type to ensure maximum browser coverage
+     * Include multiple sources to ensure compatiblity
+     * ```HTML
+       <video controls>
+        <source src="rabbit320.mp4" type="video/mp4">
+        <source src="rabbit320.webm" type="video/webm">
+        <p>Your browser doesn't support HTML5 video. Here is a <a href="rabbit320.mp4">link to the video</a> instead.</p>
+      </video>
+      
+      ```
+ 
+   * Other `<video>` features
+     * width and height - The width and height of the video player. Aspect ratio is preserved and extra space is given side blackbars.
+     * autoplay - Makes the video play upon page load. DON'T USE THIS.
+     * loop - Makes the video restart when finished. You should probably avoid this.
+     * muted - Starts the video without sound.
+     * poster - The video thumbnail that is displayed before the video plays
+     * preload - `none | auto | metadata` - Enable buffering for the video
+ * The `<audio>` element
+   * Basic behavior is the exact same as the `<video>` element
+   * Does not support width/height, poster attributes
+ * Displaying video text tracks
+   * `<track>` used to include subtitle information in WebVTT files
+   * `<track kind="subtitles | captions | descriptions" src="example_en.vtt" srclang="en">`
+
 ### <a name="ResponsiveImages">[Responsive Images by Google](https://www.udacity.com/course/responsive-images--ud882)</a>
 
 ### <a name="TouchAndMouse">[Supporting both TouchEvent and MouseEvent](https://developer.mozilla.org/en-US/docs/Web/API/Touch_events/Supporting_both_TouchEvent_and_MouseEvent)</a>
