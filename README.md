@@ -12,6 +12,12 @@
   * [Supporting both TouchEvent and MouseEvent](#TouchAndMouse)
   * [Touch events](#Touch)
 * [Front End Networking](#Front)
+  * [Introduction to fetch()](#IntroToFetch)
+  * [Using fetch](#UsingFetch)
+  * [David Walsh's blog on fetch](#Walsh)
+  * [Jake Archibald's blog on fetch](#ArchibaldFetch)
+  * [JavaScript Promises: an Introduction](#Promises)
+  * [HTTP access control (CORS)](#CORS)
 * [Accessibility](#A11y)
 * [Progressive Web Apps](#PWA)
 * [Performance Optimization and Caching](#Perf)
@@ -36,6 +42,19 @@ The topics for the guide are taken from the official study guide found [here](ht
 ---
 
 ## <a name="Basic">Basic Website Layout and Styling</a>
+Users expect responsive and visually engaging websites regardless of the device. A web
+application's layout and styling must respond to the current display, while continuing to provide
+intuitive functionality. You'll be asked to show you can use HTML, CSS, and JavaScript to build
+a web application’s responsive layout and style that includes:
+* DOM elements that are accessed and manipulated using only JavaScript without the
+overhead of libraries or frameworks (such as jQuery)
+* Appropriate document type declaration and viewport tags
+* A responsive grid-based layout using CSS
+* Media queries that provide fluid breakpoints across different screen sizes
+* Multimedia tags to display video or play audio
+* Responsive images that adjust for the dimensions and resolution of any mobile device
+* Touch and mouse events that contain large hit targets on the front end and work
+regardless of platform
 ### <a name="ResponsiveWebDesign">[Responsive Web Design](https://developers.google.com/web/fundamentals/design-and-ux/responsive/)</a>
  * Design to cover screen sizes of many different devices
   * Always include meta viewport tag
@@ -403,6 +422,29 @@ Note: These notes are my notes taken while taking the Mobile Web Specialist Nano
 * Link contains significant code examples and it is recommended to follow the full example
       
 ## <a name="Front">Front End Networking</a>
+
+Because user engagement depends on reliable and effective network requests, you'll be asked
+to show you can use JavaScript to set up reliable front end networking protocols by:
+* Requesting data using `fetch()`
+* Checking response status, then parsing the data into usable format
+* Rendering response data to a page
+* Configuring POST requests to a database with `method` and `body` parameters
+* Using correctly configured cross-origin resource sharing protocol (CORS) fetch requests,
+depending on the server's response headers
+* Handling `fetch()` request errors with promise chaining
+* Diagnosing network issues using debugging and development tools
+
+### <a name="IntroToFetch>[Introduction to fetch()](https://developers.google.com/web/updates/2015/03/introduction-to-fetch)</a>
+ 
+### <a name="UsingFetch">[Using fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch)</a>
+
+### <a name="Walsh">[David Walsh's blog on fetch](https://davidwalsh.name/fetch)</a>
+
+### <a name="ArchibaldFetch">[Jake Archibald's blog on fetch](https://jakearchibald.com/2015/thats-so-fetch/)</a>
+
+### <a name="Promises">[JavaScript Promises: an Introduction](https://developers.google.com/web/fundamentals/primers/promises)</a>
+
+### <a name="CORS">[HTTP access control (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)</a>
 
 ## <a name="A11y">Accessibility</a>
 
