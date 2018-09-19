@@ -388,6 +388,19 @@ Note: These notes are my notes taken while taking the Mobile Web Specialist Nano
     * `touchend`
 
 ### <a name="Touch">[Touch events](https://developer.mozilla.org/en-US/docs/Web/API/Touch_events)</a>
+
+* Definitions
+  * Surface - The touch-sensitive surface.
+  * Touch point - A point of contact with the surface.
+* Interfaces
+  * TouchEvent - An event that occurs when the state of touches on the surface changes
+  * Touch - Represents a single point of contact between the user and the touch surface
+  * TouchList - A group of touches, used when multiple touches are active at once (For example, using multiple fingers)
+* Start handler with `touchstart` event
+* Handle movement with `touchmove` event
+* End handler with `touchend` event
+* `touchcancel` sent when handle event hits other UI or otherwise needs to be cancelled
+* Link contains significant code examples and it is recommended to follow the full example
       
 ## <a name="Front">Front End Networking</a>
 
