@@ -434,7 +434,7 @@ depending on the server's response headers
 * Handling `fetch()` request errors with promise chaining
 * Diagnosing network issues using debugging and development tools
 
-### <a name="IntroToFetch>[Introduction to fetch()](https://developers.google.com/web/updates/2015/03/introduction-to-fetch)</a>
+### <a name="IntroToFetch">[Introduction to fetch()](https://developers.google.com/web/updates/2015/03/introduction-to-fetch)</a>
  
 ### <a name="UsingFetch">[Using fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch)</a>
 
