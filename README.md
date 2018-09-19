@@ -435,6 +435,34 @@ depending on the server's response headers
 * Diagnosing network issues using debugging and development tools
 
 ### <a name="IntroToFetch">[Introduction to fetch()](https://developers.google.com/web/updates/2015/03/introduction-to-fetch)</a>
+
+* `fetch()` is so much better than XMLHttpRequest please never use XMLHttpRequest ever again
+* [Link to polyfill](https://github.com/github/fetch)
+* Basic request
+  * `fetch('url').then(response => response.json()).then(data => console.log(data))`
+  * Handle the response with a promise
+  * Response could also have an error, so add a `.catch()` to the end
+* [Response object](https://fetch.spec.whatwg.org/#responses)
+  * headers, status, statusText, type, url, etc.
+* Mode
+  * Define a mode such that only certain requests will resolve
+  * same-origin - Only succeeds if request is of the same origin
+  * cors - will allow requsts for assets on same-origin and cross-origin
+  * cors-with-forced-preflight - Will perform a preflight check before making the request
+  * no-cors - Make requests to other origins that do not have CORS headers for an `opaque` response. Probably ignore this, not implemented in the window gloabl scope.
+  * `fetch('example.com', {mode: 'cors'})`
+* POST Request
+  * `fetch(url, method: 'post', headers: { "Content-type": "application/x-www-form-urlencoded; charset=UTF-8" }, body: 'foo=bar'})`
+* Sending Credentials with a Fetch Request
+  * Used for sending a request with credentials such as cookies
+  * `fetch(url, { credentials: 'include' })`
+* FAQ
+  * How do I cancel a fetch() request?
+    * Currently, you can't but it is being discussed
+  * Is there a polyfill?
+    * [Yes!](https://github.com/github/fetch)
+  * Why is "no-cors" supported in service workers but not the window?
+    * Security concern. More info [here](https://bugs.chromium.org/p/chromium/issues/detail?id=457157&q=fetch%20no-cors&colspec=ID%20Pri%20M%20Week%20ReleaseBlock%20Cr%20Status%20Owner%20Summary%20OS%20Modified)
  
 ### <a name="UsingFetch">[Using fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch)</a>
 
