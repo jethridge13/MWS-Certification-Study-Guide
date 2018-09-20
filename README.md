@@ -466,6 +466,34 @@ depending on the server's response headers
  
 ### <a name="UsingFetch">[Using fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch)</a>
 
+* Differences between `fetch()` and `jQuery.ajax()`
+  * `fetch()` won't reject on HTTP error status. Will resolve normally with `ok` set to `false`
+  * `fetch()` won't send or receive cookies from the server by default.
+* Uploading JSON data
+  
+  ```JavaScript
+  fetch(url, {
+  method: 'POST',
+  body: JSON.stringify(data0, // data can be string or object
+  headers: { 'Content-Type': 'application/json' }})
+  ```
+  
+* Files can be uploaded by appending a file input to a form and then submitting that
+* A `Request()` object can be used as the `fetch()` argument instead of a url
+* A `Headers()` object can also be used
+  * Guard - A guard can be set on the header to restrict the immutability
+    * none - default, allow maximum amount of mutability
+    * request - guard for a headers object obtained from a request (`Request.headers`)
+    * request-no-cors - guard for a headers object obtained from a `Request.mode-no-cors` request
+    * response - guard for a Headers obtained from a response (`Response.headers`)
+    * immutable - Used for service workers, read-only
+* Response objects
+  * `Response.status` - The HTML response code (integer)
+  * `Response.statusText` - The response status string that corresponds to the status code
+  * `Response.ok` - `true` if response is in the 200 range signifying a successful request, otherwise `false`
+* `fetch()` can be detected for browser compatiblity by checking for `Headers`, `Request`, `Response`, or `fetch()` on the `Window` or `Worker` scope.
+This can be useful for detecting when to add the polyfill.
+
 ### <a name="Walsh">[David Walsh's blog on fetch](https://davidwalsh.name/fetch)</a>
 
 ### <a name="ArchibaldFetch">[Jake Archibald's blog on fetch](https://jakearchibald.com/2015/thats-so-fetch/)</a>
