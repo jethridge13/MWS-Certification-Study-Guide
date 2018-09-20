@@ -434,6 +434,8 @@ depending on the server's response headers
 * Handling `fetch()` request errors with promise chaining
 * Diagnosing network issues using debugging and development tools
 
+Note: There is much overlap in what the sources cover. To avoid redundant notes, each new section will only include new content.
+
 ### <a name="IntroToFetch">[Introduction to fetch()](https://developers.google.com/web/updates/2015/03/introduction-to-fetch)</a>
 
 * `fetch()` is so much better than XMLHttpRequest please never use XMLHttpRequest ever again
@@ -495,6 +497,27 @@ depending on the server's response headers
 This can be useful for detecting when to add the polyfill.
 
 ### <a name="Walsh">[David Walsh's blog on fetch](https://davidwalsh.name/fetch)</a>
+
+* Customizing Request - the following options can be included in the `fetch()` call
+  * method - `GET`, `POST`, `PUT`, `DELETE`, `HEAD`
+  * url - URL of the request
+  * headers - associated `Headers()` object
+  * referrer - referrer of the request
+  * mode - `cors`, `no-cors`, `same-origin`
+  * credentials - should cookies be included? `omit`, `same-origin`
+  * redirect - `follow`, `error`, `manual`
+  * integrity - subresource intergrity value
+  * cache - cache mode (`default`, `reload`, `no-cache)
+* Extra Response methods 
+  * `clone()` - Creates a clone of the Response
+  * `error()` - Returns the error associated with the Response object
+  * `redirect()` - Creates a new response with a different URL
+  * `arrayBuffer()` - Returns a promise that resolves with an ArrayBuffer
+  * `blob()` - Returns a promise that resolves with a Blob
+  * `formData()` - Returns a promise that resolves with a FormData object
+  * `json()` - Returns a promise that resolves with a JSON object
+  * `text()` - Returns a promise that resolves with a USVString
+
 
 ### <a name="ArchibaldFetch">[Jake Archibald's blog on fetch](https://jakearchibald.com/2015/thats-so-fetch/)</a>
 
