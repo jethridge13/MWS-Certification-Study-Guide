@@ -521,6 +521,14 @@ This can be useful for detecting when to add the polyfill.
 
 ### <a name="ArchibaldFetch">[Jake Archibald's blog on fetch](https://jakearchibald.com/2015/thats-so-fetch/)</a>
 
+* Can get access to the low-level body stream
+* Streaming data from the response drains the stream, and thus cannot be read again
+  * This is why the response needs to be cloned if wanting to perform more operations on it after calling `.json()` on it
+* What's missing?
+  * Request aborting - potentially fixable
+  * Progress events
+  * Synchronous events - Are not included and never will be because sync requests are awful
+
 ### <a name="Promises">[JavaScript Promises: an Introduction](https://developers.google.com/web/fundamentals/primers/promises)</a>
 
 ### <a name="CORS">[HTTP access control (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)</a>
