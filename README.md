@@ -531,6 +531,50 @@ This can be useful for detecting when to add the polyfill.
 
 ### <a name="Promises">[JavaScript Promises: an Introduction](https://developers.google.com/web/fundamentals/primers/promises)</a>
 
+* Terminology
+  * fulfilled - The action relating to the promise succeeded
+  * rejected - The action relating to the promise failed
+  * pending - The promise has neither been fulfilled or rejected yet
+  * settled - The promise as either been fulfilled or rejected
+* Basic syntax
+  * Declaring a promise
+  
+    ```
+    var promise = new Promise(function(resolve, reject) {
+      // do a thing, possibly async, then…
+
+      if (/* everything turned out fine */) {
+        resolve("Stuff worked!");
+      }
+      else {
+        reject(Error("It broke"));
+      }
+    });
+    ```
+  
+  * Using a promise
+
+    ```
+    promise.then(function(result) {
+      console.log(result); // "Stuff worked!"
+    }, function(err) {
+      console.log(err); // Error: "It broke"
+    });
+    ```
+
+* [There is a polyfill! (Although major support has already arrived)](https://github.com/stefanpenner/es6-promise#readme)
+* Chaining
+  * Call `then()` at the end of another `then()` function to chain promises together
+  * The subsequent promise will receive the return value from the previous promise
+* Error handling
+  * The second function argument is used when handling errors
+  * `catch()` can be used to catch errors
+  * This method can be used instead of calling a promise with 2 arguments
+* More Advanced Syntax
+  * `Promise.resolve()` will return a promise that always resolves with the given value
+  * `Promise.reject()` will return a promise that always rejects with the given value
+  * `Promise.all()` takes an array of promises that fulfills when all of them succuessfully complete
+
 ### <a name="CORS">[HTTP access control (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)</a>
 
 ## <a name="A11y">Accessibility</a>
