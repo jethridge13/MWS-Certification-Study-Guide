@@ -27,6 +27,11 @@
   * [Skip Navigation Links](#SkipNavLinks)
   * [ARIA](#ARIA)
 * [Progressive Web Apps](#PWA)
+  * [Progressive Web Apps](#PWAOverview)
+  * [Progressive Web Apps Training](#PWATraining)
+  * [Web Fundamentals = The App Shell Model](#AppShellModel)
+  * [Your First Progressive Web App](#FirstPWA)
+  * [Using Service Workers](#SW)
 * [Performance Optimization and Caching](#Perf)
 * [Testing and Debugging](#Test)
 * [ES2015 Concepts and Syntax](#ES2015)
@@ -634,6 +639,16 @@ This can be useful for detecting when to add the polyfill.
 ### <a name="ARIA">[ARIA](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA)</a>
 
 ## <a name="PWA">Progressive Web Apps</a>
+
+### <a name="PWAOverview">[Progressive Web Apps](https://developers.google.com/web/progressive-web-apps/)</a>
+
+### <a name="PWATraining">[Progressive Web App Training](https://developers.google.com/web/ilt/pwa/)</a>
+
+### <a name="AppShellModel">[Web Fundamentals - The App Shell Model](https://developers.google.com/web/fundamentals/architecture/app-shell)</a>
+
+### <a name="FirstPWA">[Your First Progressive Web App](https://developers.google.com/web/fundamentals/codelabs/your-first-pwapp/)</a>
+
+### <a name="SW">[Using Service Workers](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers)</a>
 
 ## <a name="Perf">Performance Optimization and Caching</a>
 
