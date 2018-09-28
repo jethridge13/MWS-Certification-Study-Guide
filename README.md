@@ -577,6 +577,39 @@ This can be useful for detecting when to add the polyfill.
 
 ### <a name="CORS">[HTTP access control (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)</a>
 
+* Cross-Origin Resource Sharing allows a web application running at one origin to have permission to access selected resource from a server at a different origin
+* Browsers restrict cross-origin HTTP requests intiated from within scripts
+* Functional overview
+  * Adds new HTTP headers that allow servers to describe a set of origins that are permitted to read that information using the browser
+* Examples of access control scenarios
+  * Simple requests do not trigger the CORS preflight request, such as GET requests
+  * Preflighted requests
+    * An OPTIONS request is sent to confirm the actual request is safe to send
+      * PUT, DELETE, CONNECT, OPTIONS, TRACE, PATCH can trigger preflight requests
+   * Requests with credentials
+     * By default, cross-site requests will not send credentials. A specific flag must be set
+* The HTTP response headers
+  * Access-Control-Allow-Origin
+    * Returns either a single, specified origin or "*" for any origin
+      * "\*" wildcard cannot be returned with credentials
+  * Access-Control-Expose-Headers
+    * The server whitelists headers that are exposed to the browser
+  * Access-Control-Max-Age
+    * Indicates how long the results of a preflight request can be cached
+  * Access-Control-Allow-Credentials
+    * Indicates if the request can be made using credentials
+  * Access-Control-Allow-Methods
+    * Indicates the methods allowed when accessing the resource
+  * Access-Control-Allow-Headers
+    * Indicates the headers allowed when making the request
+* The HTTP request headers
+  * Origin
+    * Indicates the origin of the cross-site access request or preflight reqeuest
+  * Access-Control-Request-Method
+    * Used in the preflight request to let the server know what method the actual request will use
+  * Access-Control-Request-Headers
+    * Used in the preflight request to let the server know what headers the actual request will use
+
 ## <a name="A11y">Accessibility</a>
 
 ## <a name="PWA">Progressive Web Apps</a>
