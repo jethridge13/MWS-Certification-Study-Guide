@@ -43,6 +43,9 @@
   * [IndexedDB API](#IndexedDB)
   * [Get Started with Analyzing Network Performance in Chrome DevTools](#DevTools)
 * [Testing and Debugging](#Test)
+  * [Get Started with Debugging JavaScript in Chrome DevTools](#JSDevTools)
+  * [Diagnose and Log to Console](#Console)
+  * [Debugging Service Workers](#DebugSW)
 * [ES2015 Concepts and Syntax](#ES2015)
 * [Mobile Web Forms](#Forms)
 
@@ -680,6 +683,12 @@ This can be useful for detecting when to add the polyfill.
 ### <a name="DevTools">[Get Started with Analyzing Network Performance in Chrome DevTools](https://developers.google.com/web/tools/chrome-devtools/network-performance/)</a>
 
 ## <a name="Test">Testing and Debugging</a>
+
+### <a name="JSDevTools">[Get Started with Debugging JavaScript in Chrome DevTools](https://developers.google.com/web/tools/chrome-devtools/javascript/)</a>
+
+### <a name="Console">[Diagnose and Log to Console](https://developers.google.com/web/tools/chrome-devtools/console/console-write)</a>
+
+### <a name="DebugSW">[Debugging Service Workers](https://developers.google.com/web/fundamentals/codelabs/debugging-service-workers/)</a>
 
 ## <a name="ES2015">ES2015 Concepts and Syntax</a>
 
