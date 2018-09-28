@@ -33,6 +33,15 @@
   * [Your First Progressive Web App](#FirstPWA)
   * [Using Service Workers](#SW)
 * [Performance Optimization and Caching](#Perf)
+  * [Using Web Workers](#WebWorkers)
+  * [Offline Web Applications by Google](#GoogleOfflineWebApps)
+  * [Web Fundamentals - Performance](#PerformanceFundamentals)
+  * [The Offline Cookbook](#OfflineCookbook)
+  * [Cache - MDN](#Cache)
+  * [Storage](#Storage)
+  * [Local Storage And How To Use It On Websites](#LocalStorage)
+  * [IndexedDB API](#IndexedDB)
+  * [Get Started with Analyzing Network Performance in Chrome DevTools](#DevTools)
 * [Testing and Debugging](#Test)
 * [ES2015 Concepts and Syntax](#ES2015)
 * [Mobile Web Forms](#Forms)
@@ -651,6 +660,24 @@ This can be useful for detecting when to add the polyfill.
 ### <a name="SW">[Using Service Workers](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers)</a>
 
 ## <a name="Perf">Performance Optimization and Caching</a>
+
+### <a name="WebWorkers">[Using Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers)</a>
+
+### <a name="GoogleOfflineWebApps">[Offline Web Applications by Google](https://www.udacity.com/course/offline-web-applications--ud899)</a>
+
+### <a name="PerformanceFundamentals">[Web Fundamentals - Performance](https://developers.google.com/web/fundamentals/performance/why-performance-matters/)</a>
+
+### <a name="OfflineCookbook">[The Offline Cookbook](https://jakearchibald.com/2014/offline-cookbook/)</a>
+
+### <a name="Cache">[Cache - MDN](https://developer.mozilla.org/en-US/docs/Web/API/Cache)</a>
+
+### <a name="Storage">[Storage](https://developer.mozilla.org/en-US/docs/Web/API/Storage)</a>
+
+### <a name="LocalStorage">[Local Storage And How To Use It On Websites](https://www.smashingmagazine.com/2010/10/local-storage-and-how-to-use-it/)</a>
+
+### <a name="IndexedDB">[IndexedDB API](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)</a>
+
+### <a name="DevTools">[Get Started with Analyzing Network Performance in Chrome DevTools](https://developers.google.com/web/tools/chrome-devtools/network-performance/)</a>
 
 ## <a name="Test">Testing and Debugging</a>
 
