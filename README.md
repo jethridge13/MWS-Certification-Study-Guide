@@ -29,7 +29,7 @@
 * [Progressive Web Apps](#PWA)
   * [Progressive Web Apps](#PWAOverview)
   * [Progressive Web Apps Training](#PWATraining)
-  * [Web Fundamentals = The App Shell Model](#AppShellModel)
+  * [Web Fundamentals - The App Shell Model](#AppShellModel)
   * [Your First Progressive Web App](#FirstPWA)
   * [Using Service Workers](#SW)
 * [Performance Optimization and Caching](#Perf)
@@ -47,6 +47,14 @@
   * [Diagnose and Log to Console](#Console)
   * [Debugging Service Workers](#DebugSW)
 * [ES2015 Concepts and Syntax](#ES2015)
+  * [JavaScript Promises: an Introduction](#ES6Promises)
+  * [Promise](#Promise)
+  * [Template literals](#TemplateLiterals)
+  * [Arrow Functions](#ArrowFunctions)
+  * [Default Parameters](#Defaults)
+  * [For...of](#ForOf)
+  * [Map](#Map)
+  * [Set](#Set)
 * [Mobile Web Forms](#Forms)
 
 ---
@@ -691,5 +699,21 @@ This can be useful for detecting when to add the polyfill.
 ### <a name="DebugSW">[Debugging Service Workers](https://developers.google.com/web/fundamentals/codelabs/debugging-service-workers/)</a>
 
 ## <a name="ES2015">ES2015 Concepts and Syntax</a>
+
+### <a name="ES6Promises">[JavaScript Promises: an Introduction](https://developers.google.com/web/fundamentals/primers/promises)</a>
+
+### <a name="Promise">[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)</a>
+
+### <a name="TemplateLiterals">[Template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)</a>
+
+### <a name="ArrowFunctions">[Arrow Functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)</a>
+
+### <a name="Defaults">[Default parameters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Default_parameters)</a>
+
+### <a name="ForOf">[For...of](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of)</a>
+
+### <a name="Map">[Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map)</a>
+
+### <a name="Set">[Set](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set)</a>
 
 ## <a name="Forms">Mobile Web Forms</a>
