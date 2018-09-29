@@ -56,6 +56,11 @@
   * [Map](#Map)
   * [Set](#Set)
 * [Mobile Web Forms](#Forms)
+  * [Create Amazing Forms](#AmazingForms)
+  * [Constraint Validation](#ConstraintValidation)
+  * [Client-Side Form Validation with HTML5](#ClientSideValidation)
+  * [Data form validation](#DataFormValidation)
+  * [HTML Forms](#HTMLForms)
 
 ---
 
@@ -717,3 +722,13 @@ This can be useful for detecting when to add the polyfill.
 ### <a name="Set">[Set](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set)</a>
 
 ## <a name="Forms">Mobile Web Forms</a>
+
+### <a name="AmazingForms">[Create Amazing Forms](https://developers.google.com/web/fundamentals/design-and-ux/input/forms/)</a>
+
+### <a name="ConstraintValidation">[Constraint Validation](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation)</a>
+
+### <a name="ClientSideValidation">[Client-Side Form Validation with HTML5](https://www.sitepoint.com/client-side-form-validation-html5/)</a>
+
+### <a name="DataFormValidation">[Data form validation](https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation)</a>
+
+### <a name="HTMLForms">[HTML Forms](https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms)</a>
