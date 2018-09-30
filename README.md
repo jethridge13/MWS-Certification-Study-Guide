@@ -868,6 +868,32 @@ Note: These notes are my notes taken while taking the Mobile Web Specialist Nano
 
 ### <a name="MobileA11y">[Mobile Accessibility](https://developer.mozilla.org/en-US/docs/Learn/Accessibility/Mobile)</a>
 
+* Accessibility on mobile devices
+  * Mobile devices now have screenreaders and other accessibility tool support
+  * Following a11y best practices will get you the majority of the way to a fully accessible mobile site
+  * Exceptions:
+    * Control mechanisms - Ensure interface controls (such as buttons) are accessible on mobile
+    * User input - Ensure user input requirements as painless as possible (e.g. in forms. Typing in forms on mobile is a pain)
+    * Responsive design - Ensure layout works on mobile and users can still access ALL content
+* Summary of screenreader testing on Android and iOS
+  * Most common mobile platforms have fully functional screenreaders
+* Control mechanisms
+  * `mousedown` and `mouseup` cannot be activated on mobile while `click` can. Use `click` events for cross-compatibility
+  * If you must use mouse events, include an equivalent such as `ontouchstart` and `ontouchend`
+* Responsive design
+  * Responsive design is the practice of making your layouts and other feature of your apps dynamically change depending on factors such as screen size and resolution
+  * Most common problems
+    * Suitable layouts. For example, multi-column layouts don't work on mobile and should be addressed by using technologies such as flexbox
+    * Conserving image sizes downloaded. Small screens usually need smaller images. Mobile devices also are usually on slower connections and smaller images will load faster
+    * Thinking about high resolutions. Mobile devices have high resolutions for their small screen sizes. Use SVG vector graphics where possible to maximize resolution and file size requirements.
+  * Specific mobile considerations
+    * Don't disable zoom
+    * Keep menus accessible - Don't remove the menu; hide it and reveal it when the user prompts for it by using techniques such as the hamburger menu
+* User input
+  * Try to use as minimal typing into inputs as possible
+  * Instead of universal text fields, consider a `select` element with an "Other" option which enables a text field
+  * Mobile devices often have custom widgets for various input types, such as `time` and `date`
+
 ### <a name="TabIndex">[Using tabindex](https://developers.google.com/web/fundamentals/accessibility/focus/using-tabindex)</a>
 
 ### <a name="Focus">[Focus](https://developers.google.com/web/fundamentals/accessibility/focus/)</a>
