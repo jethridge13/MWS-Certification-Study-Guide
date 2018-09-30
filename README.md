@@ -896,6 +896,25 @@ Note: These notes are my notes taken while taking the Mobile Web Specialist Nano
 
 ### <a name="TabIndex">[Using tabindex](https://developers.google.com/web/fundamentals/accessibility/focus/using-tabindex)</a>
 
+* The `tabindex` HTML attribute can be used to change the order in which elements are tabbed through
+* `tabindex="0"` inserts an element in the natural tab order
+* `tabindex="-1"` removes an element from the natural tab order but can still be focused with `focus()`
+* Any tab index greater than 0 jumps the element to the front of the natural tab order.
+  * If there are multiple elements with a tab index above 0, the tab order starts from the lowest value greater than zero and then works up
+  * THIS IS AN ANTI-PATTERN
+* If the element is not interactable, don't worry about tab index. Screenreaders can still understand it.
+* Managing focus at the page level
+  * Managing focus is particularly helpful when working on a single page that has some content hidden and becomes visible
+* Managing focus in components
+  * When creating custom components, managing focus is key
+  * [Accessible Rich Internet Applicaions (ARIA) Authoring Practices)[https://www.w3.org/TR/wai-aria-practices/] contains guidelines for creating custom components
+* Modal and keyboard traps
+  * Keyboard focus should never be locked or trapped at one particular page element
+  * Exception to the above: modal windows
+  * Create a keyboard trap for a modal by creating a loop of the focusable elements in the modal.
+    * When the user requests to tab to an element at the last focusable element in the modal, add focus to the first element in the modal. 
+    * Add an event listener for "Esc" to close the modal. This creates a better user experience
+
 ### <a name="Focus">[Focus](https://developers.google.com/web/fundamentals/accessibility/focus/)</a>
 
 ### <a name="SkipNavLinks">[Skip Navigation Links](https://webaim.org/techniques/skipnav/)</a>
