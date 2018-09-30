@@ -917,7 +917,12 @@ Note: These notes are my notes taken while taking the Mobile Web Specialist Nano
 
 ### <a name="Focus">[Focus](https://developers.google.com/web/fundamentals/accessibility/focus/)</a>
 
-### <a name="SkipNavLinks">[Skip Navigation Links](https://webaim.org/techniques/skipnav/)</a>
+* Focus refers to which control on the screen currently receives input from the user
+* Elements that are focused will be visually represented as such
+* What is focusable?
+  * Interactive elements (such as inputs) are *implicitly focusable*, that is, they are automatically inserted into the tab order.
+
+### <a name="SkipNavLinks">[Skip Navigation Links]()</a>
 
 ### <a name="ARIA">[ARIA](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA)</a>
 
