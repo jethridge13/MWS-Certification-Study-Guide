@@ -687,6 +687,184 @@ aria-labelledby
     * ADD, Dyslexia, Autism, etc.
 
 ### <a name="UdacityA11y">[Web Accessibility](https://www.udacity.com/course/web-accessibility--ud891)</a>
+Note: These notes are my notes taken while taking the Mobile Web Specialist Nanodegree course by Udacity, which includes these courses as part of the program.
+
+* Introduction to Focus
+    * Using the keyboard to drive page functionality
+* What is Focus?
+  * Tab - move focus forwards
+  * Shift + Tab - move focus backwards
+  * Arrow keys - move focus between option elements
+  * Tab Order -  order in which elements are focused
+  * Implicitly focusable - elements which are implicitly tab ordered, usually input elements
+* DOM Order Matters
+  * Implicit Tab Order is determined by HTML order
+  * WebAIM 1.3.2 - Meaningful Sequence
+    * The reading and navigation of tab order should be logical
+* Quiz: Fixing DOM Order
+  * Move elements around in the HTML so they make sense
+* Using Tabindex
+  * Attribute to manually set tab order
+  * -1 - Not in natural tab order but can be focused with focus()
+  * 0 - In tab order, can be programmatically focused
+  * >0 - in the tab order, jumped to the front of the tab order. ANTI-PATTERN
+* Deciding what’s in focus
+  * Only add focus behavior to interactive controls
+* Quiz: Which Element Should Have Focus?
+  * Elements that are interactable should have focus
+* Managing Focus
+  * Don’t add tab index to site content unless the page is manipulated in response to user action
+* Skip Links
+  * A link that jumps straight to main content
+    * Skips ahead of navbars and other things to get straight to the important stuff
+  * Can hide skip link offscreen until it’s focused
+* Focus in Complex Components
+  * ARIA Design Patterns lists keyboard interactions with components
+* Keyboard Design Patterns
+  * Roving focus - changing focus between items in an input group
+* Offscreen Content
+  * Accessibility Dev Tools extension - adds audits for accessibility
+  * Display: none or visibility: hidden to hide offscreen
+    * Display: block and visibility: visible to bring back
+* Modals and Keyboard Traps
+  * Keyboard trap - focus is stuck on input
+  * Modals want to keep focus though - want temp keyboard trap
+  * Lots of good code here talking about keyboard traps for modals, reference this later
+* Assistive Technology
+  * Devices, software, and tools that help any person with a disability complete a task
+* Affordances
+  * Cues based on previously encountered objects - such as handle on a kettle and handles on mugs and various other things with handles
+* Semantics and Assistive Technologies
+  * For all user interface components, the name and role should be able to be programmatically determined
+* Quiz: Experience Using a Screen Reader
+  * I am glad I have fully functional eyes
+* Role, Name, Value
+  * Role, Name, State, Value - what the screenreader should be able to dictate to the user
+* The Accessibility Tree
+  * The browser takes the DOM tree and modifies it for screen readers
+* Semantics in Native HTML
+  * Implicit Semantic Meaning - The DOM uses standard HTML elements that work in predictive ways
+* Writing Semantic HTML: The Name Game
+  * Provide text-alternatives for non-text content
+  * Labels - visible and text-alternative
+  * Make sure input elements have labels
+* Text Alternatives
+  * Alt text only used if image isn’t available
+  * Alt text should convey same meaning of image
+  * Empty alt text skips content
+* Navigating with a screen reader
+  * Headings are very valuable for screen readers
+* Using Headings
+  * DOM order matters for heading order
+  * Headings can be placed outside screen for use with screen readers, but should be used carefully
+* Quiz: Using Headings
+  * Don’t rely on headings to style size. Use CSS for that. Use headings for importance
+* Other navigational options example
+  * Can navigate by links only
+  * Can navigate by form controls
+* Link Text
+  * Link anti-patterns
+    * Don’t use span links or `<a>` with href
+      * Always use hrefs
+    * Don’t use links when buttons should be used
+    * If using images for links, make sure the image has alt text
+  * Links should be described by the link text alone
+* Landmarks
+  * Elements that are used to designate content based on context
+    * Main
+    * Header
+    * Footer
+    * Nav
+    * Article
+    * Section
+    * Aside
+* Outro Lesson 4
+  * Meaningful headings and good page structure
+  * Don’t try to control the experience of a screen reader
+* Why ARIA
+  * Web Accessibility Initiative - Accessible Rich Internet Applications
+  * Specify attributes on elements that change how elements are translated into the accessibility tree
+  * role and aria-checked attributes, for example, to make a checkbox
+  * ARIA attributes always need explicit values
+* What can ARIA do for you?
+  * Create custom widgets for accessibility
+  * Express relationships between elements
+* Roleplaying
+  * Role and tabindex on same element for tabbing through elements
+  * Roles - various elements that can be used in the DOM
+  * ARIA spec for more info
+* More Ways to Label
+  * label, labelledby, describedby
+  * aria-label
+    * Label for the role of an element, like “Close” or “Menu”
+  * aria-labelledby 
+    * Refer to another element in the DOM by id to be used as the label
+    * Overrides all other namespaces
+* Default Semantics and Landmarks
+  * Don’t redefine default semantics
+    * input with type checkbox already has a role
+    * Exception: if default semantics aren’t defined
+* ARIA Relationships
+  * aria-owns 
+    * Assigns parent with more children for other elements that aren’t children in the DOM
+  * aria-activedescedant
+    * When parent has focus, put focus on this element instead
+  * aria-describedby 
+    * Description used in the same fashion as aria-labelledby
+  * aria-posinset and aria-setsize
+    * Defines relationships between sibling elements in a set
+    * setsize describes actual size of set
+    * posinset describes position in set
+* Hidden In Plain Sight
+  * Anything hidden will not be displayed in accessibility tree
+  * Not visually rendered but not hidden still in accessibility tree
+    * Also used with aria-label and other aria attributes
+  * aria-hidden removes element and descendant from accessibility tree
+* Introducing ARIA Live
+  * aria-live: give live update in similar way as a visual experience would have
+    * off, polite, and assertive
+  * Live-region should be in initial page load
+* Atomic Relevant Busy
+  * aria-atomic
+    * Consider entire live region for live updates
+  * aria-relevant	
+    * Describe what content should be read on updates
+  * aria-busy
+    * Temporarily ignore changes to this element for live updates
+* Working with focus styles
+  * What page element has focus should be visibly apparent
+  * focus pseudo class only applies when the element has focus
+  * NEVER remove focus ring completely
+  * hover pseudo class also useful
+* Input Modality
+  * Certain elements have special behavior for focus styles
+    * Buttons do not have focus styling for when clicking but do when tabbing
+* Styling with Aria
+  * Use CSS attribute selector for when attribute is set
+    * Visually confirms Aria attributes
+* Responsive design for multi-device Pt. 2
+  * Zoom can trigger mobile sites, which is better for reading when super-zoomed
+  * Don’t forget the viewport tag
+  * Use ems and rems for text for better text scaling
+  * Ensure margins around icons as well
+* Meeting Contrast Requirements
+  * Minimum contrast ratio of 4.5:1 for text
+    * Large text can be 3:1
+  * Enhanced text and images should have 7.5:1
+  * Chrome has built-in accessibility auditing
+* Don’t convey info with color alone
+  * Always provide multiple avenues to convey important information
+  * Color shouldn’t be used to distinguish links alone
+  * NoCoffee - accessibility testing tool for color and visual impairments
+* High Contrast Mode
+  * Invert background and foreground colors
+  * Verify that UI is still usable in high contrast
+* Course Outro
+  * Impact - most impact with least effort
+    * How frequently is this piece of UI used?
+    * How badly does this issue affect your users?
+    * How expensive is it going to be to fix?
+  * Good accessibility is good UX
 
 ### <a name="MobileA11y">[Mobile Accessibility](https://developer.mozilla.org/en-US/docs/Learn/Accessibility/Mobile)</a>
 
