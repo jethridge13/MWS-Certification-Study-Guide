@@ -649,7 +649,42 @@ This can be useful for detecting when to add the polyfill.
 
 ## <a name="A11y">Accessibility</a>
 
+Web pages and applications should be accessible to all users, including those with visual,
+motor, hearing, and cognitive impairments. Using HTML, CSS, JavaScript, you'll be asked to
+show you can integrate accessibility best practices into your web pages and applications by:
+* Using a logical tab order for tabbed navigation
+* Using skip navigation links to bypass navbars and asides
+* Avoiding hidden content on the page that impedes tab navigation
+* Using heading tags that provide a logical page structure
+* Using text alternatives to visual content, such as alt, <label>, aria-label, and
+aria-labelledby
+* Applying color contrast to all elements and following accessibility best practices
+* Sending timely alerts for urgent messages using aria-live
+* Using semantic markup to keep content and presentation separate when appropriate
+
 ### <a name="A11yFundamentals">[Web Fundamentals - Accessibility](https://developers.google.com/web/fundamentals/accessibility/)</a>
+
+* What is accessibility?
+  * Broad definition: A site's content and functionality can be operated by *anyone*
+  * Accessiblity includes non-physical and temporary impairments
+* Web Content Accessibility Guidelines
+  * [Web Content Accessibility Guidelines](https://www.w3.org/TR/WCAG20/)
+  * POUR and the [WebAIM (Web Accessibility in Mind) Checklist](https://webaim.org/standards/wcag/checklist)
+  * Perceivable - Can users perceive the content?
+  * Operable - Can users use UI components and navigate the content?
+  * Understandable - Can users understand the content?
+  * Robust - Is the content cross-browser compatible? Does it work with assistive technologies?
+* Understanding users' diversity
+  * Four main impairments - visual, motor, hearing, cognitive
+  * Visual
+    * Screen reader, braille reader, or a combination of both could be used to navigate the site
+    * Visual includes blindness, low-vision, color blindness/poor color vision, and even stuff like glare on the screen
+  * Motor
+    * User could be paralyzed and not have access to a mouse or could have a broken wrist or could simply prefer to use the keyboard
+  * Hearing
+    * Deaf, hard-of-hearing, or loud background environment
+  * Cognitive
+    * ADD, Dyslexia, Autism, etc.
 
 ### <a name="UdacityA11y">[Web Accessibility](https://www.udacity.com/course/web-accessibility--ud891)</a>
 
