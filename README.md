@@ -950,6 +950,31 @@ Note: These notes are my notes taken while taking the Mobile Web Specialist Nano
 
 ### <a name="ARIA">[ARIA](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA)</a>
 
+* ARIA - Accessible Rich Internet Applications - a set of attributes that define ways to make the internet accessible to everyone
+* If there is a choice between the ARIA implementation and the HTML5 implementation, use the HTLM5 implementation
+  * The HTML5 standard includes many of the necessary a11y features that ARIA provides
+  * If you do use ARIA, it is your responsibility for maintaining the correct a11y behavior
+* ARIA attributes describe behavior of components so a11y technologies such as screenreaders can help users use the site
+* An overview of accessible web applications and widgets
+  * The problem
+    * Dynamic content on a web page modify the DOM in ways that assistive technology may not be aware of
+    * ARIA helps solve this
+  * ARIA
+    * Roles - describe widgets that aren't otherwise available in HTML4 such as sliders, menu bars, tabs, and dialogs
+    * Properties - describe characteristics of the aforementioned widgets such as if they are draggable or have an associated popup
+    * State - describe the current interaction state of an element such as disabled, selected, or hidden
+  * Presentational changes - Changing the appearance of content
+    * State changes
+      * Declaring the current state of a UI widget
+      * [Full list of ARIA states](https://www.w3.org/TR/wai-aria-1.1/#introstates)
+    * Visibility changes
+      * Set `aria-hidden` when an element is hidden or shown
+  * Role changes
+    * Declare a semantic role for an element that otherwise does not have one
+    * The role of an element should not change
+  * Keyboard navigation
+    * All features of a web application or widget should be controllable with the keyboard
+
 ## <a name="PWA">Progressive Web Apps</a>
 
 ### <a name="PWAOverview">[Progressive Web Apps](https://developers.google.com/web/progressive-web-apps/)</a>
