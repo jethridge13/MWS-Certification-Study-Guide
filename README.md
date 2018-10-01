@@ -977,6 +977,18 @@ Note: These notes are my notes taken while taking the Mobile Web Specialist Nano
 
 ## <a name="PWA">Progressive Web Apps</a>
 
+* Progressive Web Apps are user experiences that have the reach of the web and are:
+  * Reliable - Load instantly and never show an offline error even when offline or with slow internet
+  * Fast - Respond quickly to user interactions with no jank
+  * Engaging - Feel like a natural app on the device with an immersive user experience
+* Reliable - When launched from the user's home screen, the PWA loads instantly regardless of network state
+* Fast - The site loads quickly and once loaded, navigating the site is responsive and quick-to-respond
+* Engaging - Installable on the user's home screen without an app store and can even use push notifications
+* Why build a PWA?
+  * Increased engagement
+  * Work reliably no matter the network conditions
+  * Improve conversions
+
 ### <a name="PWAOverview">[Progressive Web Apps](https://developers.google.com/web/progressive-web-apps/)</a>
 
 ### <a name="PWATraining">[Progressive Web App Training](https://developers.google.com/web/ilt/pwa/)</a>
