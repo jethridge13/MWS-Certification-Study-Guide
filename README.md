@@ -977,6 +977,19 @@ Note: These notes are my notes taken while taking the Mobile Web Specialist Nano
 
 ## <a name="PWA">Progressive Web Apps</a>
 
+Users expect native applications to be available offline and provide a feature-rich experience
+that is launchable from their home page. You'll be asked to show that you can use service
+workers, and HTML and JavaScript to build out progressive web application features similar to
+native applications by:
+* Creating a web app that is available offline, and that caches elements by routing
+requests through a service worker
+* Storing the default display orientation, theme color, display icon (add to home screen),
+and splash screen in the web application manifest (or using meta tags)
+* Separating critical application functionality and UI into an application shell that can be
+loaded independently from the content
+
+### <a name="PWAOverview">[Progressive Web Apps](https://developers.google.com/web/progressive-web-apps/)</a>
+
 * Progressive Web Apps are user experiences that have the reach of the web and are:
   * Reliable - Load instantly and never show an offline error even when offline or with slow internet
   * Fast - Respond quickly to user interactions with no jank
@@ -988,8 +1001,6 @@ Note: These notes are my notes taken while taking the Mobile Web Specialist Nano
   * Increased engagement
   * Work reliably no matter the network conditions
   * Improve conversions
-
-### <a name="PWAOverview">[Progressive Web Apps](https://developers.google.com/web/progressive-web-apps/)</a>
 
 ### <a name="PWATraining">[Progressive Web App Training](https://developers.google.com/web/ilt/pwa/)</a>
 
