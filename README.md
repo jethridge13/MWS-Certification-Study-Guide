@@ -922,7 +922,31 @@ Note: These notes are my notes taken while taking the Mobile Web Specialist Nano
 * What is focusable?
   * Interactive elements (such as inputs) are *implicitly focusable*, that is, they are automatically inserted into the tab order.
 
-### <a name="SkipNavLinks">[Skip Navigation Links]()</a>
+### <a name="SkipNavLinks">[Skip Navigation Links](https://webaim.org/techniques/skipnav/)</a>
+
+* Overview
+  * A Skip Navigation Link is a link that is the first tabbable item that, when clicked, will skip over all navigation content and get straight to the main content.
+  * Skip nav links are useful for getting around all of the header links and navigation content at the beginning of a site
+  * Especiially useful for keyboard-only navigation
+* Creating "Skip Navigation" Links
+  * Visible links at the top of the page
+    * Add a visible link to the list of nav items
+    * Important that the link is the first or one of the very first links on a page
+    * Method works well but can be intrusive to visual design or overall confusing
+  * Invisible links
+    * Place the link in the DOM but hide it offscreen until it is focused
+    * Could be easily skipped so is important to make the skip link easily visible once selected
+* Browser Quirks
+  * Some browsers may not fully support skip links but can be created using `focus()`
+* Multiple "Skip" Links
+  * One or two skip links are useful. Any more could be overbearing
+  * HTML5 section elements and ARIA landmarks can also help avoid the need for multiple skip links
+* Alternatives to "Skip Navigation" Links
+  * Navigating by headings
+    * A page filled with useful headings can be a better alternative for screenreader users
+  * Alternate reading orders
+    * Put nav links at the bottom of the DOM and use CSS to place it at the top
+    * Becomes an issue when screenreader users want to use the nav links
 
 ### <a name="ARIA">[ARIA](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA)</a>
 
