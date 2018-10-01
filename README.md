@@ -1004,7 +1004,28 @@ loaded independently from the content
 
 ### <a name="PWATraining">[Progressive Web App Training](https://developers.google.com/web/ilt/pwa/)</a>
 
+Note: This section is *very* in-depth. It is recommended instead to follow along with the tutorial to cover all of the material.
+
 ### <a name="AppShellModel">[Web Fundamentals - The App Shell Model](https://developers.google.com/web/fundamentals/architecture/app-shell)</a>
+
+* Application shell - A method of building a PWA that reliably and instantly loads on the screen
+  * The minimal HTML, CSS, and JavaScript required to power the user interface and can load instantly when offline
+* When to use the app shell model
+  * When the navigation is relatively unchanging but has changing content
+* Benefits
+  * Reliable performance that is consistently fast
+  * Native-like interactions
+  * Economical use of data
+* Requirements
+  * Load fast
+  * Use as little data as possible
+  * Use static assets from a local cache
+  * Separate content from navigation
+  * Retrieve and display page-specific content
+  * Optionally cache dynamic content
+* Building your app shell
+  * Structure your app with a clear distinction between page shell and dynamic content
+  * Determine the right balance between speed and data freshness for each data source
 
 ### <a name="FirstPWA">[Your First Progressive Web App](https://developers.google.com/web/fundamentals/codelabs/your-first-pwapp/)</a>
 
