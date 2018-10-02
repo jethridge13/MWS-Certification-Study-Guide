@@ -1029,6 +1029,34 @@ Note: This section is *very* in-depth. It is recommended instead to follow along
 
 ### <a name="FirstPWA">[Your First Progressive Web App](https://developers.google.com/web/fundamentals/codelabs/your-first-pwapp/)</a>
 
+Note: This section contains a codelab which walks through the steps of building a simple PWA.
+If you have never built one before, I recommend following it through.
+This section of notes will contain important parts of the step-by-step process.
+
+* Architect your App Shell
+  * Design the app shell
+    * What needs to be on screen immediately?
+    * What other UI components are key to our app?
+    * What supporting resources are needed for the app shell?
+* Implement your App Shell
+  * Create the HTML for the App Shell
+  * Include the key JavaScript code that is necessary for the app to run
+* Use service workers to pre-cache the App Shell
+  * Register the service worker if it's available
+  * Cache the site assets
+  * Serve the app shell from the cache
+* Use service workers to cache dynamic data
+  * Intercept the network request and cache the response
+* Support native integration
+  * Declare an app manifest with a `manifest.json` file
+    * Best Practices
+      * Place the manifest link on all pages
+      * Chrome prefers the `short_name`
+      * Define icon sets for different density screens
+      * Include an icon with a size that is sensible for a splash screen
+      * Don't forget to set the `background_color`
+* Deploy to a secure host and celebrate
+
 ### <a name="SW">[Using Service Workers](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers)</a>
 
 ## <a name="Perf">Performance Optimization and Caching</a>
