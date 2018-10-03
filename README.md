@@ -1059,6 +1059,132 @@ This section of notes will contain important parts of the step-by-step process.
 
 ### <a name="SW">[Using Service Workers](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers)</a>
 
+* The premise of service workers
+  * Service workers are used to cache and serve content when offline
+* Basic architecture
+
+1. The service worker URL is fetched and registered via `serviceWorkerContainer.register()`
+2. The service worker is executed in a `ServiceWorkerGlobalScope`
+3. The service worker is now ready to process events
+4. Installation of the worker is attempted when service worker controlled pages are accessed
+5. When the `oninstall` handler completes, the service worker is considered installed
+6. Once the service worker is installed, it receives an activate event
+7. The service worker will now control pages but only those opened after `register()` is successful
+
+* Registering your worker
+
+  ```
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw-test/sw.js', {scope: '/sw-test/'})
+    .then(function(reg) {
+      // registration worked
+      console.log('Registration succeeded. Scope is ' + reg.scope);
+    }).catch(function(error) {
+      // registration failed
+      console.log('Registration failed with ' + error);
+    });
+  }
+  ```
+  * Why is my service worker not registering?
+    * It must be running on HTTPS
+    * The path to the service worker file must be written relative to the origin, not the app's root directory
+    * The service worker must be on the same origin as the app
+* Install and activate: populating your cache
+  * After a SW is registered, it will attempt to install. If the install succeeds, an `install` event is fired.
+  
+  ```
+  self.addEventListener('install', function(event) {
+    event.waitUntil(
+      caches.open('v1').then(function(cache) {
+        return cache.addAll([
+          '/sw-test/',
+          '/sw-test/index.html',
+          '/sw-test/style.css',
+          '/sw-test/app.js',
+          '/sw-test/image-list.js',
+          '/sw-test/star-wars-logo.jpg',
+          '/sw-test/gallery/',
+          '/sw-test/gallery/bountyHunters.jpg',
+          '/sw-test/gallery/myLittleVader.jpg',
+          '/sw-test/gallery/snowTroopers.jpg'
+        ]);
+      })
+    );
+  });
+  ```
+  
+* Custom responses to requests
+  
+  ```
+  self.addEventListener('fetch', function(event) {
+    event.respondWith(
+      caches.match(event.request)
+    );
+  });
+  ```
+
+* Recovering failed requests
+  * If the request isn't in the cache, fetch it and store it for later
+  ```
+  self.addEventListener('fetch', function(event) {
+    event.respondWith(
+      caches.match(event.request).then(function(resp) {
+        return resp || fetch(event.request).then(function(response) {
+          let responseClone = response.clone();
+          caches.open('v1').then(function(cache) {
+            cache.put(event.request, responseClone);
+          });
+
+          return response;
+        });
+      }).catch(function() {
+        return caches.match('/sw-test/gallery/myLittleVader.jpg');
+      })
+    );
+  });
+  ```
+
+* Updating your service worker
+  * SWs have versions which need to be incremented to install the latest version
+  
+  ```
+  self.addEventListener('install', function(event) {
+    event.waitUntil(
+      caches.open('v2').then(function(cache) {
+        return cache.addAll([
+          '/sw-test/',
+          '/sw-test/index.html',
+          '/sw-test/style.css',
+          '/sw-test/app.js',
+          '/sw-test/image-list.js',
+
+          …
+
+          // include other new resources for the new version...
+        ]);
+      })
+    );
+  });
+  ```
+
+* Deleting old caches
+
+```
+self.addEventListener('activate', function(event) {
+  var cacheWhitelist = ['v2'];
+
+  event.waitUntil(
+    caches.keys().then(function(keyList) {
+      return Promise.all(keyList.map(function(key) {
+        if (cacheWhitelist.indexOf(key) === -1) {
+          return caches.delete(key);
+        }
+      }));
+    })
+  );
+});
+```
+
 ## <a name="Perf">Performance Optimization and Caching</a>
 
 ### <a name="WebWorkers">[Using Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers)</a>
