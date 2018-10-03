@@ -1204,6 +1204,79 @@ Mobile users demand websites that load nearly instantly, despite poor or absent 
 
 ### <a name="WebWorkers">[Using Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers)</a>
 
+* Web Workers API
+  * A worker is an object that runs a named JavaScript file
+  * A dedicated worker is only accessible from the script that first spawned it
+  * Shared workers can be accessede from multiple scripts
+  * A worker can do almost anything any other script can do *except* modify the DOM or use some properties of `window`
+    * [For an exhaustive list of supported functions, see this link](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Functions_and_classes_available_to_workers)
+  * `postMessage()` is used to send messages between the main thread and workers
+  * The `onmessage` event can be used to handle the aforementioned messages
+* Dedicated workers
+  * Worker feature detection
+    * To ensure browser support, it is recommended that all worker code be wrapped in the following: 
+    * `if (window.Worker) { ... }`
+  * Spawning a dedicated worker
+    * `var myWorker = new Worker('workerScript.js');`
+  * Sending messages to and from a dedicated worker
+    * `myWorker.postMessage([value1, value2]);` 
+    ```
+    onmessage = function(e) {
+      console.log('Message received from main script');
+      var workerResult = 'Result: ' + (e.data[0] * e.data[1]);
+      console.log('Posting message back to main script');
+      postMessage(workerResult);
+    }
+    ```
+    ```
+    myWorker.onmessage = function(e) {
+      result.textContent = e.data;
+      console.log('Message received from worker');
+    }
+    ```
+  * Terminating a worker
+    * The following will close a worker immediately without closing up after itself
+    * `myWorker.terminate();`
+    * The following can be used within a worker to close itself
+    * `close();`
+  * Handling errors
+    * `onerror` is called when a runtime error occurs
+    * The error event has the following fields
+      * `message` - the human readable error message
+      * `filename` - the name of the script in which the error occurred
+      * `lineno` - the line number of the script file on which the error occurred
+  * Spawning subworkers
+    * A worker may spawn subworkers as long as the subworkers are hosted within the same origin as the parent page
+  * Importing scripts and libraries
+    * Worker threads can access `importScripts()` which can be used to import scripts
+    * The script is loaded and then executed
+* Shared workers
+  * A shared worker is accessible by multiple scripts
+  * Spawning a shared worker
+    * `var myWorker = new SharedWorker('worker.js');`
+    * Shared workers communicate via a `port` object, which must be specified by the `onmessage` event handler or with the `start()` method
+      * `start()` must be called in both the parent and child threads for 2-way communication
+  * Sending message to and from a shared worker
+    * `myWorker.port.postMessage([value1, value2]);`
+    ```
+    onconnect = function(e) {
+      var port = e.ports[0];
+
+      port.onmessage = function(e) {
+        var workerResult = 'Result: ' + (e.data[0] * e.data[1]);
+        port.postMessage(workerResult);
+      }
+    }
+    ```
+    * `myWorker.port.onmessage = function(e) { ... }`
+* About thread safety
+  * `Worker` threads spawn real OS-level threads but because communication between threads is more limited, it is often difficult to get concurrency problems
+* Content security policy
+  * Workers are not governed by the document's [content security policy](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Content_Security_Policy)
+  * To specify a content security policy for the worker, set a Content-Security-Policy response header for the request which delivers the worker script
+* Transferring data to and from workers: further details
+  * Data passed between the main page and workers is copied, not shared
+
 ### <a name="GoogleOfflineWebApps">[Offline Web Applications by Google](https://www.udacity.com/course/offline-web-applications--ud899)</a>
 
 ### <a name="PerformanceFundamentals">[Web Fundamentals - Performance](https://developers.google.com/web/fundamentals/performance/why-performance-matters/)</a>
