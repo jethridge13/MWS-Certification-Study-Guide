@@ -1187,6 +1187,21 @@ self.addEventListener('activate', function(event) {
 
 ## <a name="Perf">Performance Optimization and Caching</a>
 
+Mobile users demand websites that load nearly instantly, despite poor or absent connectivity. Because many users also face expensive data caps, you must minimize their application's data footprint to reduce page load time as much as possible. You'll be asked to show you can carry out performance audits on applications to reduce page load times and maintain responsive user experiences by:
+* Preventing main thread blocking with a dedicated web worker
+* Providing an optimized critical rendering path using:
+  * Compressed or minified JavaScript, HTML and CSS files to reduce render blocking
+  * Inline CSS for essential styles on a specific page, with asynchronous loading for additional styles as necessary
+  * Inline JavaScript files for initial rendering only where necessary (or otherwise eliminated, deferred, or marked as async)
+  * Ordered loading of remaining critical resources and early download of all critical assets to shorten the critical path length
+  * Reduced DOM depth to minimize browser layout/reflow
+  * Your browser's developer tools to diagnose performance issues on mobile devices
+* Prefetching files that load when resources are available, reducing the time to meaningful interaction
+* Providing client storage that is appropriate to a web application’s data persistence needs, including:
+  * Session state management
+  * Asset caching based on their impact on load time and offline functionality
+  * Using IndexedDB to store dynamic content in offline mode
+
 ### <a name="WebWorkers">[Using Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers)</a>
 
 ### <a name="GoogleOfflineWebApps">[Offline Web Applications by Google](https://www.udacity.com/course/offline-web-applications--ud899)</a>
