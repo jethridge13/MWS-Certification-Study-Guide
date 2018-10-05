@@ -1281,6 +1281,34 @@ Mobile users demand websites that load nearly instantly, despite poor or absent 
 
 ### <a name="PerformanceFundamentals">[Web Fundamentals - Performance](https://developers.google.com/web/fundamentals/performance/why-performance-matters/)</a>
 
+* Performance is about retaining users
+  * High performance is an asset, poor performance is a liability
+* Performance is about improving conversions
+  * Better performance, more user conversions
+* Performance is about the user experience
+  * Better performance is better user experience
+* Performance is about people
+  * The better your site performs, the more people are able to access it
+* Where to go from here
+  * Mind what resources you send
+    * Consider what CSS resources you need as it is render blocking
+    * Search for the leanest options to JavaScript libraries
+    * Not all websites need to be single page applications. Consider changing to avoid extra JavaScript
+  * Mind how you send resources
+    * Migrate to HTTP/2
+    * Expedite the delivery of resources using resource hints
+      * `rel=preload` tells browser that the resource is critical and should be fetched early
+    * Consider using code splitting to limit the amount of scripts downloaded to only what is necessary
+  * Mind how much data you send
+    * Minify text assets
+    * Configure the server to compress resources
+    * Optimize images
+    * Consider alternate image formats such as webp
+    * Deliver images responsively
+    * Use video instead of animated gifs
+    * Use client hints to determine what resources to deliver
+    * Use the `NetworkInformation` API to adjust the experience for users on slower connections
+
 ### <a name="OfflineCookbook">[The Offline Cookbook](https://jakearchibald.com/2014/offline-cookbook/)</a>
 
 ### <a name="Cache">[Cache - MDN](https://developer.mozilla.org/en-US/docs/Web/API/Cache)</a>
