@@ -1823,6 +1823,29 @@ Mobile users demand websites that load nearly instantly, despite poor or absent 
 
 ### <a name="LocalStorage">[Local Storage And How To Use It On Websites](https://www.smashingmagazine.com/2010/10/local-storage-and-how-to-use-it/)</a>
 
+* Adding State To The Web: The "Why" Of Local Storage
+  * HTTP is stateless - it doesn't remember what you were doing after you close your browser
+  * Local storage can be used to add state
+* C Is For Cookie. Is That Good Enough For Me?
+  * A cookie is a text file hosted on the user's computer and connected to the domain. It can store some basic information
+  * Cookie limitations
+    * They add to the load of every document accessed on the domain
+    * They allow up to only 4 KB of storage
+    * Some people do not trust cookies and disallow them
+* Using Local Storage in HTML5-Capable Browsers
+  * `localStorage.setItem('favoriteflavor', 'vanilla');`. That's it. It's that easy.
+  * `localStorage.getItem('favoriteflavor');` returns vanilla
+  * `localStorage.removeItem('favoriteflavor');` and *poof* it's gone
+* Working Around The "Strings Only" Issue
+  * Objects do not store as would be most helpful
+  * `JSON.stringify()` and `JSON.parse()` can be used to work around this
+  * `localStorage.setItem('myObject', JSON.stringify(myObjectExample));`
+  * `JSON.parse(localStorage.getItem('myObject'));`
+* Use Case #1: Local Storage Of Web Service Data
+  * If you store large data sets, you don't have to take the time to request them a second time
+* Use Case #2: Maintaining The State Of An Interface The Simple Way
+  * Store the state of interfaces
+
 ### <a name="IndexedDB">[IndexedDB API](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)</a>
 
 ### <a name="DevTools">[Get Started with Analyzing Network Performance in Chrome DevTools](https://developers.google.com/web/tools/chrome-devtools/network-performance/)</a>
