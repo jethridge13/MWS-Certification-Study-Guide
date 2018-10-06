@@ -1784,6 +1784,43 @@ Mobile users demand websites that load nearly instantly, despite poor or absent 
 
 ### <a name="Storage">[Storage](https://developer.mozilla.org/en-US/docs/Web/API/Storage)</a>
 
+* The Storage interface of the Web Storage API provides access to a particular domain's session or local storage.
+* Properties
+  * `Storage.length` - Returns an integer representing the number of data items stored in the Storage object
+* Methods
+  * `Storage.key()` - When passed a number n, this method will returns the name of the nth key in the storage
+  * `Storage.getItem()` - When passed a key name, will return that key's value
+  * `Storage.setItem()` - When passed a name and value, will add that key to the storage or update that key's value if it already exists
+  * `Storage.removeItem()` - When passed a key name, will remove that key from the storage
+  * `Storage.clear()` - When invoked, will empty all keys out of the storage
+* Example
+  ```
+  if(!localStorage.getItem('bgcolor')) {
+    populateStorage();
+  }
+  setStyles();
+
+  function populateStorage() {
+    localStorage.setItem('bgcolor', document.getElementById('bgcolor').value);
+    localStorage.setItem('font', document.getElementById('font').value);
+    localStorage.setItem('image', document.getElementById('image').value);
+  }
+
+  function setStyles() {
+    var currentColor = localStorage.getItem('bgcolor');
+    var currentFont = localStorage.getItem('font');
+    var currentImage = localStorage.getItem('image');
+
+    document.getElementById('bgcolor').value = currentColor;
+    document.getElementById('font').value = currentFont;
+    document.getElementById('image').value = currentImage;
+
+    htmlElem.style.backgroundColor = '#' + currentColor;
+    pElem.style.fontFamily = currentFont;
+    imgElem.setAttribute('src', currentImage);
+  } 
+  ```
+
 ### <a name="LocalStorage">[Local Storage And How To Use It On Websites](https://www.smashingmagazine.com/2010/10/local-storage-and-how-to-use-it/)</a>
 
 ### <a name="IndexedDB">[IndexedDB API](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)</a>
