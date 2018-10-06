@@ -1877,6 +1877,22 @@ Mobile users demand websites that load nearly instantly, despite poor or absent 
 
 ### <a name="DevTools">[Get Started with Analyzing Network Performance in Chrome DevTools](https://developers.google.com/web/tools/chrome-devtools/network-performance/)</a>
 
+* Set up DevTools
+  * Use the `Capture Screenshots` button in the dev tools to capture screenshots of the page load
+* Emulate a mobile user's experience
+  * Use `Disable Cache`. This will emulate the first visit to s ite
+  * Select your internet speed and change it to a mobile speed to simulate a mobile user
+    * If you can load fast on terrible connections, it will load fast for all users
+* Analyze requests
+  * Find render-blocking scripts
+    * When the browser finds a `<script>` tag, it stops everything and executes the script immediately
+    * Any scripts that aren't needed immediately should be tagged with `async`
+    * Consider also moving scripts to the bottom of the `<body>`
+  * Find large requests
+    * If the site takes too long loading one individual file, that file is probably too big. Consider compressing it or changing it for a smaller file (such as png to svg) if possible
+* Verify fixes on updated page
+  * With the fixes in place, test the page to verify that it does indeed load faster
+
 ## <a name="Test">Testing and Debugging</a>
 
 ### <a name="JSDevTools">[Get Started with Debugging JavaScript in Chrome DevTools](https://developers.google.com/web/tools/chrome-devtools/javascript/)</a>
