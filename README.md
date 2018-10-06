@@ -1895,6 +1895,12 @@ Mobile users demand websites that load nearly instantly, despite poor or absent 
 
 ## <a name="Test">Testing and Debugging</a>
 
+Developers typically work in highly iterative deployment environments, relying on extensive testing and debugging to maintain functionality and code integrity. You'll be asked to show that you can verify expected behaviors and diagnose common web application bugs by:
+* Writing unit tests that first verify a function’s intended behavior, and then iteratively modifying its code until it passes those tests
+* Setting breakpoints within a complicated function to determine exactly where it deviates from expected behavior
+* Using console logs to output relevant debugging information
+* Reproducing and fixing bugs based on user reported issues
+
 ### <a name="JSDevTools">[Get Started with Debugging JavaScript in Chrome DevTools](https://developers.google.com/web/tools/chrome-devtools/javascript/)</a>
 
 ### <a name="Console">[Diagnose and Log to Console](https://developers.google.com/web/tools/chrome-devtools/console/console-write)</a>
@@ -1902,6 +1908,16 @@ Mobile users demand websites that load nearly instantly, despite poor or absent 
 ### <a name="DebugSW">[Debugging Service Workers](https://developers.google.com/web/fundamentals/codelabs/debugging-service-workers/)</a>
 
 ## <a name="ES2015">ES2015 Concepts and Syntax</a>
+
+Web developers must stay current with the latest JavaScript features that promote simpler and more readable code. With polyfills enabling code written in ES2015 JavaScript to be used in unsupported browsers, there is a strong incentive for developers to begin using the new features and syntax. You'll be asked to show that you understand and can write ES2015 JavaScript code using:
+* JavaScript promises with ES2015 syntax that create asynchronous functions and incorporate graceful error handling
+* Variables that can be used with block scope, function scope, and made immutable depending on context using let, var, and const
+* String literals that include string interpolation and multi-line strings
+* Arrow functions that create anonymous functions and use an unbounded this
+* Default function parameters that initialize default values for a function when no argument or undefined is provided
+* for...of loops that can iterate over any iterable object while running a custom function on each
+* Maps that allow for arbitrary key and value pairs that are iterable and include non-string keys
+* Sets that contain only unique, iterable elements where an array would degrade performance
 
 ### <a name="ES6Promises">[JavaScript Promises: an Introduction](https://developers.google.com/web/fundamentals/primers/promises)</a>
 
@@ -1920,6 +1936,15 @@ Mobile users demand websites that load nearly instantly, despite poor or absent 
 ### <a name="Set">[Set](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set)</a>
 
 ## <a name="Forms">Mobile Web Forms</a>
+
+Filling out online forms, especially on mobile devices, can be difficult. To improve the user experience you'll be asked to show that you can use basic HTML5, JavaScript, and the HTML5 Constraint Validation API, to design efficient and secure HTML web forms with:
+* Appropriate label tags associated with inputs
+* Inputs with appropriate type, name and autocomplete attributes
+* Inputs with large touch targets for mobile forms
+* Suggestions for user input using the datalist element
+* Front-end validation of inputs (e.g., pattern, maxlength, required) and DOM elements, including:
+    * Checking validation errors in real-time with pseudo-classes on inputs
+    * Form validation prior to submission (Constraint Validation API)
 
 ### <a name="AmazingForms">[Create Amazing Forms](https://developers.google.com/web/fundamentals/design-and-ux/input/forms/)</a>
 
