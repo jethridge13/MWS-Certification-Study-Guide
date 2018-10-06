@@ -1707,6 +1707,81 @@ Mobile users demand websites that load nearly instantly, despite poor or absent 
 
 ### <a name="Cache">[Cache - MDN](https://developer.mozilla.org/en-US/docs/Web/API/Cache)</a>
 
+* The Cache interface provides a storage mechanism for Request / Response object pairs that are cached as part of the ServiceWorker life cycle
+  * Note: Cache is exposed to windows scopes as well as workers, so it is not necessary to only use it with service workers
+* Cache items are not updated unless explicitly requested. They do not expire unless deleted.
+* You are responsible for managing the amount of storage your site uses.
+* Methods
+  * `Cache.match(request, options)` - Returns a Promise that resolves to the response associated with the first matching request in the Cache object
+  * `Cache.matchAll(request, options)` - Returns a Promise that resolves to an array of all matching requests in the Cache object
+  * `Cache.add(request)` - Takes a URL, retrieves it, and adds the resulting response object to the given cache.
+    * Equivalent to calling `fetch()`, then using `put()` to add the results to the cache.
+  * `Cache.addAll(requests)` - Takes an array of URLs, retrieves them, and adds the resulting response objects to the given cache
+  * `Cache.put(request, response)` - Takes both a request and its response and adds it to the given cache
+  * `Cache.delete(request, options)` - Finds the cache entry whose key is the request, returning a Promise that resolves to `true` if a matching cache entry is found and deleted. If no entry is found, the promise resolves to `false`,
+  * `Cache.keys(request, options)` - Returns a promise that resolves to an array of cache keys
+* Example
+  ```
+    var CACHE_VERSION = 1;
+
+    // Shorthand identifier mapped to specific versioned cache.
+    var CURRENT_CACHES = {
+      font: 'font-cache-v' + CACHE_VERSION
+    };
+
+    self.addEventListener('activate', function(event) {
+      var expectedCacheNames = Object.values(CURRENT_CACHES);
+
+      // Active worker won't be treated as activated until promise
+      // resolves successfully.
+      event.waitUntil(
+        caches.keys().then(function(cacheNames) {
+          return Promise.all(
+            cacheNames.map(function(cacheName) {
+              if (!expectedCacheNames.includes(cacheName)) {
+                console.log('Deleting out of date cache:', cacheName);
+
+                return caches.delete(cacheName);
+              }
+            })
+          );
+        })
+      );
+    });
+
+    self.addEventListener('fetch', function(event) {
+      console.log('Handling fetch event for', event.request.url);
+
+      event.respondWith(
+
+        // Opens Cache objects that start with 'font'.
+        caches.open(CURRENT_CACHES['font']).then(function(cache) {
+          return cache.match(event.request).then(function(response) {
+            if (response) {
+              console.log('Found response in cache:', response);
+
+              return response;
+            }
+
+            console.log('Fetching request from the network');
+
+            return fetch(event.request).then(function(networkResponse) {
+              cache.put(event.request, networkResponse.clone());
+
+              return networkResponse;
+            });
+          }).catch(function(error) {
+
+            // Handles exceptions that arise from match() or fetch().
+            console.error('Error in fetch handler:', error);
+
+            throw error;
+          });
+        })
+      );
+    });
+  ```
+
 ### <a name="Storage">[Storage](https://developer.mozilla.org/en-US/docs/Web/API/Storage)</a>
 
 ### <a name="LocalStorage">[Local Storage And How To Use It On Websites](https://www.smashingmagazine.com/2010/10/local-storage-and-how-to-use-it/)</a>
