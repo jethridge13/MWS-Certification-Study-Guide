@@ -1848,6 +1848,33 @@ Mobile users demand websites that load nearly instantly, despite poor or absent 
 
 ### <a name="IndexedDB">[IndexedDB API](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)</a>
 
+* IndexedDB is a low-level API for client-side storage of significant amounts of structured data, including files and blobs
+* Web Storage is useful for storing smaller amounts of data but is less useful for larger amounts of structured data. That's where IndexedDB comes to help.
+* Key concepts and usage
+  * IndexedDB is a transactional database system, like SQL
+  * Unlike SQL, IndexedDB is a JavaScript-based object-oriented database
+  * Store and retrieve objects with a key
+  * Synchronous and asynchronous
+    * Operations are done asynchoronously
+    * Originally it included a synchornous API. It was removed because it is a bad idea to work synchornously for most web technologies
+* Interfaces
+  * To get access to a database, call `open()` on the `indexedDB` attribute of a `window` object
+  * This returns an `IDBRequest` object
+  * Connecting to a database
+    * `IDBEnvironment` - Provides access to IndexedDB functionality. It is implemented by the `window` and `worker` objects. *Not part of the 2.0 specification*
+    * `IDBFactory` - Provides access to a database. This is the interface implemented by the global object `indexedDB` and is therefore the entry point for the API.
+    * `IDBOpenDBRequest` - Represents a request to open a database
+    * `IDBDatabase` - Represents a connection to a database. It's the only way to get a transaction on the database
+    * `IDBTransaction` - Represents a transaction. You create a transaction on a database, specify the scope, and determine the kind of access that you want.
+    * `IDBRequest` - Genereic interface that handles database requests and provides access to results
+    * `IDBObjectStore `- Represents an object store that allows access to a set of data in an IndexedDB database, looked up via primary key
+    * `IDBIndex` - Uses an index to retrieve the record(s) rather than the primary key
+    * `IDBCursor` - Iterates over object stores and indexes
+    * `IDBCursorWithValue` - Iterates over object stores and indexes and returns the cursor's current value
+    * `IDBKeyRange` - Defines a key range that can be used to retrieve data from a database in a certain range
+  * Custom event interfaces
+    * `IDBVersionChangeEvent` - Indicates that the version of the database has changed
+
 ### <a name="DevTools">[Get Started with Analyzing Network Performance in Chrome DevTools](https://developers.google.com/web/tools/chrome-devtools/network-performance/)</a>
 
 ## <a name="Test">Testing and Debugging</a>
