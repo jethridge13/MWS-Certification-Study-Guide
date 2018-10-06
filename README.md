@@ -1903,6 +1903,37 @@ Developers typically work in highly iterative deployment environments, relying o
 
 ### <a name="JSDevTools">[Get Started with Debugging JavaScript in Chrome DevTools](https://developers.google.com/web/tools/chrome-devtools/javascript/)</a>
 
+* Get familiar with the Sources panel UI
+  * The `Sources` panel in the dev tools is where you debug JavaScript
+  * The Sources panel has 3 parts
+  ![Sources Panel](https://developers.google.com/web/tools/chrome-devtools/javascript/imgs/sources-annotated.png)
+  1. File Navigator pane - Every file that the page requests
+  2. Code Editor pane - The contents of an individual file
+  3. JavaScript Debugging pane - Various debugging tools
+* Reproduce the bug
+  * The first step in debugging is finding the series of actions that consistently reproduces the bug
+* Pause the code with a breakpoint
+  * A common practice is to `console.log()` a bunch of stuff to see what's going on. It "works" but takes forever
+  * Setting a breakpoint will allow you to see the value of all active variables at that point in execution
+  * To see a full list of the various types of breakpoints and when to use them, [use this link](https://developers.google.com/web/tools/chrome-devtools/javascript/breakpoints)
+* Step through the code
+  * Stepping through the code enables you to walk through your code's execution one line at a time and see where it is misbehaving
+  * `Step into next function call` will go to the next line, stepping into a function if one is called
+  * `Step over next function call` will go to the next line, executing a function and returning to the next line if a function is called
+* Set a line-of-code breakpoint
+  * Line-of-code breakpoints are the most common. They pause execution at a specific line
+  * You can set a line-of-code breakpoint by clicking the line number of a script
+* Check variable values
+  * Method 1: The Scope pane
+    * The Scope pane in the debugging panel will show the values of *all* variables in scope
+  * Method 2: Watch Expressions
+    * Next to the Scope pane is the Watch pane. You can add expressions to watch and it will track those expressions
+    * You can add things such as `myVariable` and `typeof myVariable` to get the value of a variable or the type of a variable respectively
+  * Method 3: The Console
+    * You can use the console to quickly evaluate expressions as well
+* Apply a fix 
+  * You can edit the code live in the Code Editor pane to apply your fix directly and test out if it works immediately!
+
 ### <a name="Console">[Diagnose and Log to Console](https://developers.google.com/web/tools/chrome-devtools/console/console-write)</a>
 
 ### <a name="DebugSW">[Debugging Service Workers](https://developers.google.com/web/fundamentals/codelabs/debugging-service-workers/)</a>
