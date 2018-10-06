@@ -1936,6 +1936,37 @@ Developers typically work in highly iterative deployment environments, relying o
 
 ### <a name="Console">[Diagnose and Log to Console](https://developers.google.com/web/tools/chrome-devtools/console/console-write)</a>
 
+* TL;DR
+  * `console.log()` for basic logging
+  * `console.error()` and `console.warn()` for more important stuff
+  * `console.group()` and `console.groupEnd()` to group related messages
+  * `console.assert()` to show conditional error messages
+* Writing to the console
+  * `console.log()` takes one or more expressions and writes their current values to the console
+* Autocompleting commands - the console will recommend relevant commands as you type them. This includes expressions you previously executed
+* Organizing Console output
+  * Group messages together
+    * The `console.group()` command takes a single string parameter to set the name of the group. AFter calling it, the console will group all subsequent output messages together
+    * Use `console.groupEnd()` to end the grouping
+  * Nested groups - You can call `console.group()` a second time to nest another group inside the main group
+  * Auto-collapsing groups - Automatically collapse groups by calling `console.groupCollapsed()` instead of `console.group()`
+* Errors and warnings
+  * `console.error()` will display a red icon with red text
+  * `console.warn()` will display a yelling warning icon with the message text
+* Assertions
+  * `console.assert()` takes an expression and a string. The string will only display (as an error) if the expression evaluates to `false`
+  * Example: `console.assert(list.length < 5, 'List is too short!');` will display the assertion
+* String substitution and formatting
+  * Use string substitution to easily display variables
+  * `console.log('%s has %d points', 'Sam', 100)` => `Sam has 100 points`
+  * Format specifiers
+    * %s - String
+    * %i or %d - Integer
+    * %f - Float
+    * %o - DOM element
+    * %O - JavaScript object
+    * %c - Applies CSS style rules to the output string
+
 ### <a name="DebugSW">[Debugging Service Workers](https://developers.google.com/web/fundamentals/codelabs/debugging-service-workers/)</a>
 
 ## <a name="ES2015">ES2015 Concepts and Syntax</a>
