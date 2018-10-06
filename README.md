@@ -1311,6 +1311,400 @@ Mobile users demand websites that load nearly instantly, despite poor or absent 
 
 ### <a name="OfflineCookbook">[The Offline Cookbook](https://jakearchibald.com/2014/offline-cookbook/)</a>
 
+* The cache machine - when to store resources
+  * On install - as a dependency
+    * Cache things that are needed to load other things
+    * CSS, images, fonts, JS, templates, other static images needed for the site
+    * Basically, anything that without it, would make the site non-functional
+    ```
+    self.addEventListener('install', function(event) {
+      event.waitUntil(
+        caches.open('mysite-static-v3').then(function(cache) {
+          return cache.addAll([
+            '/css/whatever-v3.css',
+            '/css/imgs/sprites-v6.png',
+            '/css/fonts/whatever-v8.woff',
+            '/js/all-min-v4.js'
+            // etc
+          ]);
+        })
+      );
+    });
+    ```
+    * `event.waitUntil` takes a promise to define the length & success of the install
+    * If any of the resources fail to fetch, the entire call rejects
+  * On install - not as a dependecy
+    * Ideal for bigger resources that aren't crucial but will be used later on
+    ```
+    self.addEventListener('install', function(event) {
+      event.waitUntil(
+        caches.open('mygame-core-v1').then(function(cache) {
+          cache.addAll(
+            // levels 11-20
+          );
+          return cache.addAll(
+            // core assets & levels 1-10
+          );
+        })
+      );
+    });
+    ```
+    * The promise for levels 11-20 isn't being passed back to `event.waitUntil` so even if it fails, everything else will still be available offline
+  * On activate
+    * Ideal for clean-up and migration
+    * Runs once the old version of the service worker is done
+    ```
+    self.addEventListener('activate', function(event) {
+      event.waitUntil(
+        caches.keys().then(function(cacheNames) {
+          return Promise.all(
+            cacheNames.filter(function(cacheName) {
+              // Return true if you want to remove this cache,
+              // but remember that caches are shared across
+              // the whole origin
+            }).map(function(cacheName) {
+              return caches.delete(cacheName);
+            })
+          );
+        })
+      );
+    });
+    ```
+  * On user interaction
+    * If the entire site cannot be taken offline (such as YouTube or Wikipedia), allow the user to select what content they want offline
+    ```
+    document.querySelector('.cache-article').addEventListener('click', function(event) {
+      event.preventDefault();
+
+      var id = this.dataset.articleId;
+      caches.open('mysite-article-' + id).then(function(cache) {
+        fetch('/get-article-urls?id=' + id).then(function(response) {
+          // /get-article-urls returns a JSON-encoded array of
+          // resource URLs that a given article depends on
+          return response.json();
+        }).then(function(urls) {
+          cache.addAll(urls);
+        });
+      });
+    });
+    ```
+  * On network response
+    * Ideal for frequently updating resources such as messages in an inbox
+    * If a request doesn't match anything in the cache, get it from the network, send it to the page, and add it to the cache
+    ```
+    self.addEventListener('fetch', function(event) {
+      event.respondWith(
+        caches.open('mysite-dynamic').then(function(cache) {
+          return cache.match(event.request).then(function (response) {
+            return response || fetch(event.request).then(function(response) {
+              cache.put(event.request, response.clone());
+              return response;
+            });
+          });
+        })
+      );
+    });
+    ```
+  * Stale-while-revalidate
+    * Ideal for frequently updating resources that don't always need the very latest version
+    * If there's a cached version available, use it but fetch an update for next time
+    ```
+    self.addEventListener('fetch', function(event) {
+       event.respondWith(
+         caches.open('mysite-dynamic').then(function(cache) {
+           return cache.match(event.request).then(function(response) {
+             var fetchPromise = fetch(event.request).then(function(networkResponse) {
+               cache.put(event.request, networkResponse.clone());
+               return networkResponse;
+             })
+             return response || fetchPromise;
+           })
+         })
+       );
+     });
+     ```
+   * On push message
+     * Ideal for content relating to a notification
+     * Awakens the service worker from a response to the OS's messaging service
+     ```
+     self.addEventListener('push', function(event) {
+       if (event.data.text() == 'new-email') {
+         event.waitUntil(
+           caches.open('mysite-dynamic').then(function(cache) {
+             return fetch('/inbox.json').then(function(response) {
+               cache.put('/inbox.json', response.clone());
+               return response.json();
+             });
+           }).then(function(emails) {
+             registration.showNotification("New email", {
+               body: "From " + emails[0].from.name
+               tag: "new-email"
+             });
+           })
+         );
+       }
+     });
+
+     self.addEventListener('notificationclick', function(event) {
+       if (event.notification.tag == 'new-email') {
+         // Assume that all of the resources needed to render
+         // /inbox/ have previously been cached, e.g. as part
+         // of the install handler.
+         new WindowClient('/inbox/');
+       }
+     });
+     ```
+    * On background-sync
+      * Ideal for non-urgent updates, especially regular ones that wouldn't necessitate a push notification
+      ```
+      self.addEventListener('sync', function(event) {
+        if (event.id == 'update-leaderboard') {
+          event.waitUntil(
+            caches.open('mygame-dynamic').then(function(cache) {
+              return cache.add('/leaderboard.json');
+            })
+          );
+        }
+      });
+      ```
+* Cache persistence
+  * The origin is given a certain amount of free space
+  * Find out how much is available:
+  ```
+  navigator.storageQuota.queryInfo("temporary").then(function(info) {
+    console.log(info.quota);
+    // Result: <quota in bytes>
+    console.log(info.usage);
+    // Result: <used data in bytes>
+  });
+  ```
+  * The browser is free to throw away storage when necessary
+  * Request persistent storage from the user:
+  ```
+  // From a page:
+  navigator.storage.requestPersistent().then(function(granted) {
+    if (granted) {
+      // Hurrah, your data is here to stay!
+    }
+  });
+  ```
+* Serving suggestions - responding to requests
+  * The Service Worker won't use the cache unless you tell it when and how
+  * Cache only
+    * Ideal for anything you'd consider static to that version of the site
+    * These should have been cached at install
+    ```
+    self.addEventListener('fetch', function(event) {
+      // If a match isn't found in the cache, the response
+      // will look like a connection error
+      event.respondWith(caches.match(event.request));
+    });
+    ```
+  * Network only
+    * Ideal for things that have no offline equivalent
+    ```
+    self.addEventListener('fetch', function(event) {
+      event.respondWith(fetch(event.request));
+      // or simply don't call event.respondWith, which
+      // will result in default browser behaviour
+    });
+    ```
+  * Cache, falling back to network
+    * Ideal for offline first applications
+    ```
+    self.addEventListener('fetch', function(event) {
+      event.respondWith(
+        caches.match(event.request).then(function(response) {
+          return response || fetch(event.request);
+        })
+      );
+    });
+    ```
+  * Cache and network race
+    * Ideal for small assets where you're chasing performance on devices with slow disk access
+    ```
+    // Promise.race is no good to us because it rejects if
+    // a promise rejects before fulfilling. Let's make a proper
+    // race function:
+    function promiseAny(promises) {
+      return new Promise((resolve, reject) => {
+        // make sure promises are all promises
+        promises = promises.map(p => Promise.resolve(p));
+        // resolve this promise as soon as one resolves
+        promises.forEach(p => p.then(resolve));
+        // reject if all promises reject
+        promises.reduce((a, b) => a.catch(() => b))
+          .catch(() => reject(Error("All failed")));
+      });
+    };
+
+    self.addEventListener('fetch', function(event) {
+      event.respondWith(
+        promiseAny([
+          caches.match(event.request),
+          fetch(event.request)
+        ])
+      );
+    });
+    ```
+  * Network falling back to cache
+    * A quick-fix for resources that update frequently outside of the version of the site
+    * Online users get the most up-to-date content but offline users get an older cached version
+    * If the network connection succeeds, update the cached version
+    * Bad for slow connections as the user will still have to wait for the network to fail to get the content
+    ```
+    self.addEventListener('fetch', function(event) {
+      event.respondWith(
+        fetch(event.request).catch(function() {
+          return caches.match(event.request);
+        })
+      );
+    });
+    ```
+  * Cache then network
+    * Ideal for content that updates frequently
+    * The page makes two requests; one to the cache, one to the network
+    * Show the cached data first, then update the page when/if the network data arrives
+    * If updating data when the network responds, don't disrupt the user
+    Code in the page:
+    ```
+    var networkDataReceived = false;
+
+    startSpinner();
+
+    // fetch fresh data
+    var networkUpdate = fetch('/data.json').then(function(response) {
+      return response.json();
+    }).then(function(data) {
+      networkDataReceived = true;
+      updatePage();
+    });
+
+    // fetch cached data
+    caches.match('/data.json').then(function(response) {
+      if (!response) throw Error("No data");
+      return response.json();
+    }).then(function(data) {
+      // don't overwrite newer network data
+      if (!networkDataReceived) {
+        updatePage(data);
+      }
+    }).catch(function() {
+      // we didn't get cached data, the network is our last hope:
+      return networkUpdate;
+    }).catch(showErrorMessage).then(stopSpinner);
+    ```
+    Code in the Service Worker: 
+    ```
+    self.addEventListener('fetch', function(event) {
+      event.respondWith(
+        caches.open('mysite-dynamic').then(function(cache) {
+          return fetch(event.request).then(function(response) {
+            cache.put(event.request, response.clone());
+            return response;
+          });
+        })
+      );
+    });
+    ```
+  * Generic fallback
+    * Ideal for secondary imagery such as avatars, failed POST requests, "Unavailable while offline" page
+    * Use if you fail to serve something from the cache and/or network
+    * Should be an install dependency
+    ```
+    self.addEventListener('fetch', function(event) {
+      event.respondWith(
+        // Try the cache
+        caches.match(event.request).then(function(response) {
+          // Fall back to network
+          return response || fetch(event.request);
+        }).catch(function() {
+          // If both fail, show a generic fallback:
+          return caches.match('/offline.html');
+          // However, in reality you'd have many different
+          // fallbacks, depending on URL & headers.
+          // Eg, a fallback silhouette image for avatars.
+        })
+      );
+    });
+    ```
+  * ServiceWorker-side templating
+    * Ideal for pages that cannot have their server response cached
+    ```
+    importScripts('templating-engine.js');
+
+    self.addEventListener('fetch', function(event) {
+      var requestURL = new URL(event.request);
+
+      event.respondWith(
+        Promise.all([
+          caches.match('/article-template.html').then(function(response) {
+            return response.text();
+          }),
+          caches.match(requestURL.path + '.json').then(function(response) {
+            return response.json();
+          })
+        ]).then(function(responses) {
+          var template = responses[0];
+          var data = responses[1];
+
+          return new Response(renderTemplate(template, data), {
+            headers: {
+              'Content-Type': 'text/html'
+            }
+          });
+        })
+      );
+    });
+    ```
+* Putting it together
+  * A site will most likely use a combination of the previously mentioned methods
+  * Look at your request and decide how to handle it
+  * Example:
+  ```
+    self.addEventListener('fetch', function(event) {
+    // Parse the URL:
+    var requestURL = new URL(event.request.url);
+
+    // Handle requests to a particular host specifically
+    if (requestURL.hostname == 'api.example.com') {
+      event.respondWith(/* some combination of patterns */);
+      return;
+    }
+    // Routing for local URLs
+    if (requestURL.origin == location.origin) {
+      // Handle article URLs
+      if (/^\/article\//.test(requestURL.pathname)) {
+        event.respondWith(/* some other combination of patterns */);
+        return;
+      }
+      if (/\.webp$/.test(requestURL.pathname)) {
+        event.respondWith(/* some other combination of patterns */);
+        return;
+      }
+      if (request.method == 'POST') {
+        event.respondWith(/* some other combination of patterns */);
+        return;
+      }
+      if (/cheese/.test(requestURL.pathname)) {
+        event.respondWith(
+          new Response("Flagrant cheese error", {
+            status: 512
+          })
+        );
+        return;
+      }
+    }
+
+    // A sensible default pattern
+    event.respondWith(
+      caches.match(event.request).then(function(response) {
+        return response || fetch(event.request);
+      })
+    );
+  });
+  ```
+
 ### <a name="Cache">[Cache - MDN](https://developer.mozilla.org/en-US/docs/Web/API/Cache)</a>
 
 ### <a name="Storage">[Storage](https://developer.mozilla.org/en-US/docs/Web/API/Storage)</a>
