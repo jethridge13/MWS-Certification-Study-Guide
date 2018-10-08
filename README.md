@@ -2262,6 +2262,92 @@ Web developers must stay current with the latest JavaScript features that promot
 
 ### <a name="ArrowFunctions">[Arrow Functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)</a>
 
+* An arrow function has a shorter syntax than a function expression and does not have its own `this`, `arguments`, `super`, or `new.target`.
+* Arrow functions are best suited for non-method functions and cannot be used as constructors
+* Syntax
+  * Basic Syntax
+    * `(param1, param2, ..., paramN) => { statements }`
+    * `(param1, param2, ..., paramN) => expression` equivalent to `=> { return expression; }`
+    * Parentheses are optional when there is only one parameter: `singleParam => { statements }`
+  * Advanced Syntax
+    * Parenthesize the body of a function to return an object literal expression: `params => ({foo: bar})`
+    * Rest parameters and default parameters are supported
+      * `(param1, param2, ...rest) => { statements }`
+      * `(param1 = defaultValue1, param2, ..., paramN = defaultValueN) => { statements }`
+    * Destructuring within the parameter list is also supported
+      * `var f = ([a, b] = [1, 2], {x: c} = {x: a + b}) => a + b + c;`
+      * `f(); //6`
+* Description
+  * The two biggest influences on the introduction of arrow functions were shorter functions and no `this` keyword
+  ```
+  elements.map(function(element ) { 
+    return element.length; 
+  }); // [8, 6, 7, 9]
+  ```
+  vs
+  ```
+  elements.map(element => element.length); // [8, 6, 7, 9]
+  ```
+  * No separate `this`
+    * Every function having its own `this` became frustrating with any object-oriented style of programming
+    * Arrow functions do not have their own `this`. The `this` value of the enclosing lexical context is used (Basically, it follows normal variable scoping)
+    * Relation with strict mode
+      * Strict mode rules with regard to `this` are ignored
+      * All other strict mode rules apply normally
+    * Invoked through call or apply
+      * Since arrow functions do not have their own `this`, the methods `call()` or `apply()` can only pass in parameters. `thisArg` is ignored
+  * No binding of `arguments`
+    * Arrow functions do not have their own `arguments` object
+    * If `arguments` is used, it refers to the arguments of the enclosing scope
+    ```
+    var arguments = [1, 2, 3];
+    var arr = () => arguments[0];
+
+    arr(); // 1
+
+    function foo(n) {
+      var f = () => arguments[0] + n; // foo's implicit arguments binding. arguments[0] is n
+      return f();
+    }
+
+    foo(3); // 6
+    ```
+    * In most case, using rest parameters is a good alternative to using an `arguments` object
+  * Arrow functions used as methods
+    * Since arrow functions do not have their own `this` method, it is recommended to not use them as object methods
+  * Use of the `new` operator
+    * Arrow functions cannot be used as constructors and will throw an error when used with `new`
+  * Use of `prototype` property
+    * Arrow functions do not have a `prototype` property
+  * Use of the `yield` keyword
+    * The `yield` keyword may not be used in an arrow function's body. As a consequence, arrow functions cannot be used as generators
+* Function body
+  * Arrow functions can have either a "concise body" or the usual "block body"
+  ```
+  var func = x => x * x;                  
+  // concise body syntax, implied "return"
+
+  var func = (x, y) => { return x + y; }; 
+  // with block body, explicit "return" needed
+  ```
+* Returning object literals
+  * Using the concise body syntax to return object literals will not work as expected
+  * It will be parsed as a sequence of statements, not an object literal
+  * Correct syntax: `var func = () => ({foo: 1});`
+* Line breaks
+  * An  arrow function cannot contain a line break between its parameters and its arrow
+* Parsing order
+  ```
+  let callback;
+
+  callback = callback || function() {}; // ok
+
+  callback = callback || () => {};      
+  // SyntaxError: invalid arrow-function arguments
+
+  callback = callback || (() => {});    // ok
+  ```
+
 ### <a name="Defaults">[Default parameters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Default_parameters)</a>
 
 ### <a name="ForOf">[For...of](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of)</a>
