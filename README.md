@@ -2350,6 +2350,30 @@ Web developers must stay current with the latest JavaScript features that promot
 
 ### <a name="Defaults">[Default parameters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Default_parameters)</a>
 
+* Default function parameters allow named parameters to be initialized with default values if no value or `undefined` is passed
+* Syntax
+  ```
+  function [name]([param1[ = defaultValue1 ][, ..., paramN[ = defaultValueN ]]]) {
+     statements
+  }
+  ```
+* Description
+  * If no value is provided for a given parameter, it is instead assigned to the default parameter
+* Examples
+  * Passing `undefined` vs other falsy values
+    * Passing nothing or passing `undefined` will use the default value. Other falsy values (such as `null`) will not use the default
+  * Evaluated at call time
+    * The default argument is evaluated at call time
+    * A new object is created each time the function is called
+  * Default parameters are available to later default parameters
+    * Default parameters defined beforehand are available to later default paremeters
+    * `function greet(name, greeting, message = greeting + ' ' + name) { ... }`
+  * Functions defined inside function body
+    * Functions declared in the function body cannot be referred to inside the outer function's default parameters
+  * Destructured parameter with default value assignment
+    * You can use default value assignment with the destructuring assignment notation
+    * `function f([x, y] = [1, 2], {z: z} = {z: 3}) { ... }`
+
 ### <a name="ForOf">[For...of](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of)</a>
 
 ### <a name="Map">[Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map)</a>
