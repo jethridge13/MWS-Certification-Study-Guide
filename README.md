@@ -1969,6 +1969,62 @@ Developers typically work in highly iterative deployment environments, relying o
 
 ### <a name="DebugSW">[Debugging Service Workers](https://developers.google.com/web/fundamentals/codelabs/debugging-service-workers/)</a>
 
+Note: This section is a codelab. To get the most benefit from it, it is recommended to follow along with the codelab. What I feel like are the most important notes from it are listed here.
+
+* Introducing the Application Tab
+  * Inspecting the Manifest
+    * Manifest is included under the `Application` list under the `Application` tab
+    * Includes an `Add to homescreen` button to simulate the experience of adding the app to the homescreen
+  * Inspecting the Service Workers
+    * Service Workers is included under the `Application` list under the `Application` tab
+    * Provides information about Service Workers which are active in the current origin
+    * Available testing options
+      * Offline - Will simulate being disconnected from the network
+      * Update on reload - Will force the current SW to be replaced by a new one
+      * Bypass for network - Will force the browser to ignore any active SW and fetch resources from the network
+      * Show all - Will show a list of all active SWs regardless of the origin
+* Exploring the cache
+  * Add caching to your Service Worker
+    * It is recommended to use `Update on reload` for any SWs when working on caching related content
+  * Inspecting Cache Storage
+    * When content is in the cache, the `Cache Storage` section will be expandable
+    * It will contain all files cached by the SW
+    * You can remove a file from the cache by right-clicking it and selecting `Delete`
+  * Cleaning the slate
+    * Select `Clear storage` from the `Application` list and at the button select `Clear selected`. This will delete all selected cached files
+  * Under the network tab, any resource served from a SW will have a gear icon next to it
+* Simulating different network conditions
+  * Serving requests while offline
+    * Select `Offline` under the `Service Worker` settings to ensure that files are being served while offline
+  * Testing slow or flaky networks
+    * Select `Bypass for network` under the `Service Worker` settings
+    * Select a network throttling speed under the `Network` tab
+    * Notice the time it takes to download files. Uncheck `Bypass for network` and compare the speeds
+* Remember, it's just JavaScript
+  * You can use existing JavaScript debugging tools to debug Service Workers
+  * Working with the debugger
+    * Use the sources panel. Breakpoints and `debugger` keywords are your friends!
+* Testing Push Notifications
+  * Adding Push support
+    * Add an event listener for the `push` event in your SW file
+    * Example: 
+    ```
+    self.addEventListener('push', function(event) {
+      var title = 'Yay a message.';
+      var body = 'We have received a push message.';
+      var icon = '/images/smiley.svg';
+      var tag = 'simple-push-example-tag';
+      event.waitUntil(
+        self.registration.showNotification(title, {
+          body: body,
+          icon: icon,
+          tag: tag
+        })
+      );
+    });
+    ```
+    * Push requests will require user permission before they are enabled
+
 ## <a name="ES2015">ES2015 Concepts and Syntax</a>
 
 Web developers must stay current with the latest JavaScript features that promote simpler and more readable code. With polyfills enabling code written in ES2015 JavaScript to be used in unsupported browsers, there is a strong incentive for developers to begin using the new features and syntax. You'll be asked to show that you understand and can write ES2015 JavaScript code using:
