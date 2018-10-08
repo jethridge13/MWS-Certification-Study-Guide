@@ -2376,6 +2376,132 @@ Web developers must stay current with the latest JavaScript features that promot
 
 ### <a name="ForOf">[For...of](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of)</a>
 
+* The `for...of` statement creates a loop iterating over iterable objects, including `String`, `Array`, Array-like objects, `TypedArray`, `Map`, `Set`, and user defined iterables
+* Syntax
+  ```
+  for (variable of iterable) {
+    statement
+  }
+  ```
+  * `variable` - On each iteration a value of a different property is assigned to variable
+  * `iterable` - Object whose iterable properties are iterated
+* Examples
+  * Iterating over an `Array`
+    ```
+    let iterable = [10, 20, 30];
+
+    for (let value of iterable) {
+      value += 1;
+      console.log(value);
+    }
+    // 11
+    // 21
+    // 31
+    ```
+    * You can use `const` if you don't reassign the variable inside the loop
+  * Iterating over a `String`
+    ```
+    let iterable = 'boo';
+
+    for (let value of iterable) {
+      console.log(value);
+    }
+    // "b"
+    // "o"
+    // "o"
+    ```
+  * Iterating over a `TypedArray`
+    ```
+    let iterable = new Uint8Array([0x00, 0xff]);
+
+    for (let value of iterable) {
+      console.log(value);
+    }
+    // 0
+    // 255
+    ```
+  * Iterating over a `Map`
+    ```
+    let iterable = new Map([['a', 1], ['b', 2], ['c', 3]]);
+
+    for (let entry of iterable) {
+      console.log(entry);
+    }
+    // ['a', 1]
+    // ['b', 2]
+    // ['c', 3]
+
+    for (let [key, value] of iterable) {
+      console.log(value);
+    }
+    // 1
+    // 2
+    // 3
+    ```
+  * Iterating over a `Set`
+    ```
+    let iterable = new Set([1, 1, 2, 2, 3, 3]);
+
+    for (let value of iterable) {
+      console.log(value);
+    }
+    // 1
+    // 2
+    // 3
+    ```
+  * Iterating over the arguments object
+    ```
+    (function() {
+      for (let argument of arguments) {
+        console.log(argument);
+      }
+    })(1, 2, 3);
+
+    // 1
+    // 2
+    // 
+    ```
+  * Iterating over a DOM collection
+    ```
+    // Note: This will only work in platforms that have
+    // implemented NodeList.prototype[Symbol.iterator]
+    let articleParagraphs = document.querySelectorAll('article > p');
+
+    for (let paragraph of articleParagraphs) {
+      paragraph.classList.add('read');
+    }
+    ```
+  * Closing iterators
+    * `break`, `continue`, `throw`, or `return` will interrupt the loop and close the iterator
+  * Iterating over generators - You can iterate over generators
+    * Do not reuse generators, even if the `for...of` loop is terminated early
+  * Iterating over other iterable objects
+    ```
+    var iterable = {
+      [Symbol.iterator]() {
+        return {
+          i: 0,
+          next() {
+            if (this.i < 3) {
+              return { value: this.i++, done: false };
+            }
+            return { value: undefined, done: true };
+          }
+        };
+      }
+    };
+
+    for (var value of iterable) {
+      console.log(value);
+    }
+    // 0
+    // 1
+    // 2
+    ```
+  * Difference between `for...of` and `for...in`
+    * `for...in` iterates over the enumerable properties of an object in an arbitrary order
+    * `for...of` iterates over data that an iterable object defines to be iterated over
+
 ### <a name="Map">[Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map)</a>
 
 ### <a name="Set">[Set](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set)</a>
