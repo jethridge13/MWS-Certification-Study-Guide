@@ -2043,6 +2043,136 @@ Web developers must stay current with the latest JavaScript features that promot
 
 ### <a name="Promise">[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)</a>
 
+* The `Promise` object represents the eventual completion (or failure) of an asynchronous operation and its resulting value.
+* Syntax
+  * `new Promise( /* executor */ function (resolve, reject) { ... } );`
+  * executor
+    * A function that is passed with the arguments `resolve` and `reject`
+    * The executor function is executed immediately by the Promise implementation, passing `resolve` and `reject` functions.
+    * The `resolve` and `reject` functions, when called, resolve or reject the promise
+    * The executor will do its function and then calls `resolve` to resolve the promise or rejects if an error occurs
+    * If any error occurs in the executor function, the promise rejects
+* Description
+  * A `Promise` is a proxy for a value not necessarily known when the promise is created
+  * This is particularly helpful for asynchronous operations
+  * A `Promise` has the following possible states
+    * pending - initial state, neither fulfilled nor rejected
+    * fulfilled - the operation completed successfully
+    * rejected - the operation failed
+  * When a promise is fulfilled or rejected, the associated `then` method is called
+  * As `Promise.prototype.then()` and `Promise.prototype.catch()` return promises, they can be chained
+* Properties
+  * `Promise.length` - Length property whose value is always 1 (number of constructor arguments)
+  * `Promise.prototype` - Represents the prototype for the `Promise` constructor
+* Methods
+  * `Promise.all(iterable)`
+    * Returns a promise that either fulfills when all of the promises in the iterable argument have fulfilled or rejects as soon as one of the promises rejects.
+    * If the promise is fulfilled, it is fulfilled with an array of the values from the fulfilled promises in the same order as defined in the iterable.
+    * If the promise is rejected, it is rejected with the reason from the first promise that is rejected.
+  * `Promise.race(iterable)`
+    * Returns a promise that fulfills or rejects as soon as one of the promises in the iterable fulfills or rejects
+  * `Promise.reject(reason)`
+    * returns a `Promise` object that is rejected with the given reason
+  * `Promise.resolve(value)`
+    * Returns a `Promise` object that is resolved with the given value
+* Promise prototype
+  Properties
+  * `Promise.prototype.constructor
+    * Returns the function that created an instance's prototype. This is the `Promise` function by default
+  Methods
+  * `Promise.prototype.catch(onRejected)`
+    * Appends a rejection handler callback to the promise and returns a new promise resolving to the return value of the callback if it is called or to its original fulfillment value if the promise is instead fulfilled
+  * `Promise.prototype.then(onFullfilled, onRejected)`
+    * Appens fulfillment and rejection handler to the promise and returns a new promise resolving to the return value of the handler
+  * `Promise.prototype.finally(onFinally)`
+    * Appends a handler to the promise and returns a new promise which is resolved when the original promise is resolved.
+    * The handler is called when the promise is settled, either fulfilled or rejected
+* Creating a Promise
+  ```
+  const myFirstPromise = new Promise((resolve, reject) => {
+    // do something asynchronous which eventually calls either:
+    //
+    //   resolve(someValue); // fulfilled
+    // or
+    //   reject("failure reason"); // rejected
+  });
+  ```
+  To provide a function with promise functionality, simply have it return a promise
+  ```
+  function myAsyncFunction(url) {
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", url);
+      xhr.onload = () => resolve(xhr.responseText);
+      xhr.onerror = () => reject(xhr.statusText);
+      xhr.send();
+    });
+  }
+  ```
+* Examples
+  * Basic Example
+    ```
+    let myFirstPromise = new Promise((resolve, reject) => {
+      // We call resolve(...) when what we were doing asynchronously was successful, and reject(...) when it failed.
+      // In this example, we use setTimeout(...) to simulate async code. 
+      // In reality, you will probably be using something like XHR or an HTML5 API.
+      setTimeout(function(){
+        resolve("Success!"); // Yay! Everything went well!
+      }, 250);
+    });
+
+    myFirstPromise.then((successMessage) => {
+      // successMessage is whatever we passed in the resolve(...) function above.
+      // It doesn't have to be a string, but if it is only a succeed message, it probably will be.
+      console.log("Yay! " + successMessage);
+    });
+    ```
+  * Advanced Example
+    ```
+    'use strict';
+    var promiseCount = 0;
+
+    function testPromise() {
+        let thisPromiseCount = ++promiseCount;
+
+        let log = document.getElementById('log');
+        log.insertAdjacentHTML('beforeend', thisPromiseCount +
+            ') Started (<small>Sync code started</small>)<br/>');
+
+        // We make a new promise: we promise a numeric count of this promise, starting from 1 (after waiting 3s)
+        let p1 = new Promise(
+            // The resolver function is called with the ability to resolve or
+            // reject the promise
+           (resolve, reject) => {
+                log.insertAdjacentHTML('beforeend', thisPromiseCount +
+                    ') Promise started (<small>Async code started</small>)<br/>');
+                // This is only an example to create asynchronism
+                window.setTimeout(
+                    function() {
+                        // We fulfill the promise !
+                        resolve(thisPromiseCount);
+                    }, Math.random() * 2000 + 1000);
+            }
+        );
+
+        // We define what to do when the promise is resolved with the then() call,
+        // and what to do when the promise is rejected with the catch() call
+        p1.then(
+            // Log the fulfillment value
+            function(val) {
+                log.insertAdjacentHTML('beforeend', val +
+                    ') Promise fulfilled (<small>Async code terminated</small>)<br/>');
+            }).catch(
+            // Log the rejection reason
+           (reason) => {
+                console.log('Handle rejected promise ('+reason+') here.');
+            });
+
+        log.insertAdjacentHTML('beforeend', thisPromiseCount +
+            ') Promise made (<small>Sync code terminated</small>)<br/>');
+    }
+    ```
+
 ### <a name="TemplateLiterals">[Template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)</a>
 
 ### <a name="ArrowFunctions">[Arrow Functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)</a>
