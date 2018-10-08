@@ -2175,6 +2175,91 @@ Web developers must stay current with the latest JavaScript features that promot
 
 ### <a name="TemplateLiterals">[Template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)</a>
 
+* Template literals are string literals that allow embedded expressions
+* Syntax
+  * `` `string text` ``
+  * `` `string text ${expression} string text` ``
+* Description
+  * Template literals are enclosed by the back-tick character instead of double or single quotes
+  * Template literals can contain placeholders. They are indicated by the dollar sign and curly braces `${expression}`
+  * Mutli-line strings
+    * Any newline characters inserted in the source are part of the template literal
+    ```
+    console.log(`string text line 1
+    string text line 2`);
+    // "string text line 1
+    // string text line 2"
+    ```
+  * Tagged templates
+    * Tags allow you to parse template literals with a function
+    * The first argument of a tag function contains an array of string values
+    * The remaining arguments are related to the expressions
+    ```
+    var person = 'Mike';
+    var age = 28;
+
+    function myTag(strings, personExp, ageExp) {
+      var str0 = strings[0]; // "That "
+      var str1 = strings[1]; // " is a "
+
+      // There is technically a string after
+      // the final expression (in our example),
+      // but it is empty (""), so disregard.
+      // var str2 = strings[2];
+
+      var ageStr;
+      if (ageExp > 99){
+        ageStr = 'centenarian';
+      } else {
+        ageStr = 'youngster';
+      }
+
+      // We can even return a string built using a template literal
+      return `${str0}${personExp}${str1}${ageStr}`;
+    }
+
+    var output = myTag`That ${ person } is a ${ age }`;
+
+    console.log(output);
+    // That Mike is a youngster
+    ```
+    * Tag functions don't need to return a string, as shown in this example
+    ```
+    function template(strings, ...keys) {
+      return (function(...values) {
+        var dict = values[values.length - 1] || {};
+        var result = [strings[0]];
+        keys.forEach(function(key, i) {
+          var value = Number.isInteger(key) ? values[key] : dict[key];
+          result.push(value, strings[i + 1]);
+        });
+        return result.join('');
+      });
+    }
+
+    var t1Closure = template`${0}${1}${0}!`;
+    t1Closure('Y', 'A');  // "YAY!"
+    var t2Closure = template`${0} ${'foo'}!`;
+    t2Closure('Hello', {foo: 'World'});  // "Hello World!"
+    ```
+  * Raw strings
+    * The special `raw` property, available on the first function argument of tagged templates, allows you to access the raw strings as they were entered without processing escape sequences
+    ```
+    function tag(strings) {
+      console.log(strings.raw[0]);
+    }
+
+    tag`string text line 1 \n string text line 2`;
+    // logs "string text line 1 \n string text line 2" ,
+    // including the two characters '\' and 'n'
+    ```
+  * Tagged templates and escape sequences
+    * Tagged templates conform to the rules of the following escape sequences
+      * Unicode escapes started by `\u`. For example: `\u00A9`
+      * Unicode code point escapes indicated by `\u{}`. For example: `\u{2F804}`
+      * Hexadecimal escapes started by `\x`. For example, `\xA9`
+      * Octal literal escapes started by `\` and (a) digit(s). For example, `\251`
+
 ### <a name="ArrowFunctions">[Arrow Functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)</a>
 
 ### <a name="Defaults">[Default parameters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Default_parameters)</a>
