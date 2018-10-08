@@ -2039,6 +2039,8 @@ Web developers must stay current with the latest JavaScript features that promot
 
 ### <a name="ES6Promises">[JavaScript Promises: an Introduction](https://developers.google.com/web/fundamentals/primers/promises)</a>
 
+[Note: This section has already been covered here](#Promises)
+
 ### <a name="Promise">[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)</a>
 
 ### <a name="TemplateLiterals">[Template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)</a>
