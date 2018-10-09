@@ -2686,6 +2686,175 @@ Web developers must stay current with the latest JavaScript features that promot
 
 ### <a name="Set">[Set](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set)</a>
 
+* The `Set` stores unique values of any type
+* Syntax
+  * `new Set([iterable]);`
+  * Parameters
+    * `iterable` - All elements in the `Iterable` object are added to the new `Set`. If the iterable is empty or `null`, the `Set` will be empty
+* Description
+  * `Set` objects are a collection of unique values.
+  * Value equality
+    * In ECMA2015, `+0` and `-0` are equal. 
+    * `NaN` is considered equal to `NaN`
+* Properties
+  * `Set.length` - The value of the `length` property is 0
+  * `get Set[@@species]` - The constructor function that is used to create derived objects
+  * `Set.prototype` - Represents the prototype for the `Set` constructor
+* `Set` instances
+  * All `Set` instances inherit from `Set.prototype`
+  * Properties
+    * `Set.prototype.constructor` - Returns the function that created an instance's prototype
+    * `Set.prototype.size` - Returns the number of values in the set
+  * Methods
+    * `Set.prototype.add(value)` - Appends a new element to the set. Returns the `Set` object
+    * `Set.prototype.clear()` - Removes all elements
+    * `Set.prototype.delete(value)` - Removes the `value` from the `Set`. If the value existed, returns `true`, otherwise, returns `false
+    * `Set.prototype.entries()` - Returns an `Iterator` that contains an array of `[value, value]` for each element in the `Set` in insertion order. This is kept similar to `Map` so that each entry has the same value for its key and value here
+    * `Set.prototype.forEach(callbackFn[, thisarg])` - Calls `callbackFn` once for each value in the `Set` in insertion order. If a `thisArg` parameter is provided, it will be used as the `this` value for each callback
+    * `Set.prototype.has(value)` - Returns `true` if the value is in the `Set`, otherwise `false
+    * `Set.prototype.keys()` - Is the same function as `Set.prototype.values()`
+    * `Set.prototype.values()` - Returns an `Iterator` that contains values for each element in the `Set` in insertion order
+    * `Set.prototype[@@iterator]()` - Returns an `Iterator` that contains values for each element in insertion order
+* Examples
+  * Using the `Set` object
+    ```
+    var mySet = new Set();
+
+    mySet.add(1); // Set [ 1 ]
+    mySet.add(5); // Set [ 1, 5 ]
+    mySet.add(5); // Set [ 1, 5 ]
+    mySet.add('some text'); // Set [ 1, 5, 'some text' ]
+    var o = {a: 1, b: 2};
+    mySet.add(o);
+
+    mySet.add({a: 1, b: 2}); // o is referencing a different object so this is okay
+
+    mySet.has(1); // true
+    mySet.has(3); // false, 3 has not been added to the set
+    mySet.has(5);              // true
+    mySet.has(Math.sqrt(25));  // true
+    mySet.has('Some Text'.toLowerCase()); // true
+    mySet.has(o); // true
+
+    mySet.size; // 5
+
+    mySet.delete(5); // removes 5 from the set
+    mySet.has(5);    // false, 5 has been removed
+
+    mySet.size; // 4, we just removed one value
+    console.log(mySet);// Set [ 1, "some text", Object {a: 1, b: 2}, Object {a: 1, b: 2} ]
+    ```
+  * Iterating Sets
+    ```
+    // iterate over items in set
+    // logs the items in the order: 1, "some text", {"a": 1, "b": 2}, {"a": 1, "b": 2} 
+    for (let item of mySet) console.log(item);
+
+    // logs the items in the order: 1, "some text", {"a": 1, "b": 2}, {"a": 1, "b": 2} 
+    for (let item of mySet.keys()) console.log(item);
+
+    // logs the items in the order: 1, "some text", {"a": 1, "b": 2}, {"a": 1, "b": 2} 
+    for (let item of mySet.values()) console.log(item);
+
+    // logs the items in the order: 1, "some text", {"a": 1, "b": 2}, {"a": 1, "b": 2} 
+    //(key and value are the same here)
+    for (let [key, value] of mySet.entries()) console.log(key);
+
+    // convert Set object to an Array object, with Array.from
+    var myArr = Array.from(mySet); // [1, "some text", {"a": 1, "b": 2}, {"a": 1, "b": 2}]
+
+    // the following will also work if run in an HTML document
+    mySet.add(document.body);
+    mySet.has(document.querySelector('body')); // true
+
+    // converting between Set and Array
+    mySet2 = new Set([1, 2, 3, 4]);
+    mySet2.size; // 4
+    [...mySet2]; // [1, 2, 3, 4]
+
+    // intersect can be simulated via 
+    var intersection = new Set([...set1].filter(x => set2.has(x)));
+
+    // difference can be simulated via
+    var difference = new Set([...set1].filter(x => !set2.has(x)));
+
+    // Iterate set entries with forEach
+    mySet.forEach(function(value) {
+      console.log(value);
+    });
+
+    // 1
+    // 2
+    // 3
+    // 4
+    ```
+  * Implementing basic set operations
+    ```
+    function isSuperset(set, subset) {
+        for (var elem of subset) {
+            if (!set.has(elem)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    function union(setA, setB) {
+        var _union = new Set(setA);
+        for (var elem of setB) {
+            _union.add(elem);
+        }
+        return _union;
+    }
+
+    function intersection(setA, setB) {
+        var _intersection = new Set();
+        for (var elem of setB) {
+            if (setA.has(elem)) {
+                _intersection.add(elem);
+            }
+        }
+        return _intersection;
+    }
+
+    function difference(setA, setB) {
+        var _difference = new Set(setA);
+        for (var elem of setB) {
+            _difference.delete(elem);
+        }
+        return _difference;
+    }
+
+    //Examples
+    var setA = new Set([1, 2, 3, 4]),
+        setB = new Set([2, 3]),
+        setC = new Set([3, 4, 5, 6]);
+
+    isSuperset(setA, setB); // => true
+    union(setA, setC); // => Set [1, 2, 3, 4, 5, 6]
+    intersection(setA, setC); // => Set [3, 4]
+    difference(setA, setC); // => Set [1, 2]
+    ```
+  * Relation with `Array` objects
+    ```
+    var myArray = ['value1', 'value2', 'value3'];
+
+    // Use the regular Set constructor to transform an Array into a Set
+    var mySet = new Set(myArray);
+
+    mySet.has('value1'); // returns true
+
+    // Use the spread operator to transform a set into an Array.
+    console.log([...mySet]); // Will show you exactly the same Array as myArray
+    ```
+  * Relation with `Strings`
+    ```
+    var text = 'India';
+
+    var mySet = new Set(text);  // Set ['I', 'n', 'd', 'i', 'a']
+    mySet.size;  // 5
+    ```
+
 ## <a name="Forms">Mobile Web Forms</a>
 
 Filling out online forms, especially on mobile devices, can be difficult. To improve the user experience you'll be asked to show that you can use basic HTML5, JavaScript, and the HTML5 Constraint Validation API, to design efficient and secure HTML web forms with:
