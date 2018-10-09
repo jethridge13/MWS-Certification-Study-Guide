@@ -2504,6 +2504,186 @@ Web developers must stay current with the latest JavaScript features that promot
 
 ### <a name="Map">[Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map)</a>
 
+* The `Map` object holds key-value pairs. Any value may be used as either a key or a value
+* Syntax
+  * `new Map([iterable])`
+  * Parameters
+    * `iterable` - An `Array` or other iterable object whose elements are key-value pairs
+* Description
+  * A `Map` object iterates its elements in insertion order
+  * A `for...of` loop returns an array of `[key, value]` for each iteration
+  * Key equality
+    * `NaN` is considered the same as `NaN` (despite `NaN !== NaN`)
+    * All other values are considered equal according to the semantics of `===`
+  * Objects and maps compared
+    * The keys of an `Object` are `Strings` and `Symbols` whereas they can by any value for a `Map`
+    * The keys in a `Map` are ordered while keys added to an `Object` are not
+    * `Map` has the `size` property while the size of an `Object` must be determined manually
+    * `Map` is itself iterable while iterating over an `Object` requires obtaining its keys and accessing the values from the object using them
+    * An `Object` has a prototype so there are default keys in the map that could cause collission
+    * A `Map` may perform better when adding/removing many key pairs
+* Properties
+  * `Map.length` - The value of the `length` property is 0
+  * `get Map[@@species]` - The constructor function that is used to create derived objects
+  * `Map.prototype` - Represents the prototype for the `Map` constructor. Allows the addition of properties to all `Map` objects
+* `Map` instances
+  * All `Map` instances inherit from `Map.prototype`
+  * Properties
+    * `Map.prototype.constructor` - Returns the function that created an instance's prototype. This is the `Map` function by default
+    * `Map.prototype.size` - Returns the number of key/value pairs in the `Map`
+  * Methods
+    * `Map.prototype.clear()` - Removes all key/value pairs
+    * `Map.prototype.delete(key)` - Returns `true` if an element existed and has been removed or `false` if the element does not exist
+    * `Map.prototype.entries()` - Returns an `Iterator` that contains an array of `[key, value]` for each element in the `Map` in insertion order
+    * `Map.prototype.forEach(callbackFn[, thisArg])` - Calls `callbackFn` once for each key/value pair present in insertion order
+    * `Map.prototype.get(key)` - Returns the value associated to the `key` or `undefined` if there is none
+    * `Map.prototype.has(key)` - Returns `true` if key is in `Map`, otherwise `false`
+    * `Map.prototype.keys()` - Returns a new `Iterator` object that contains the keys for each element in insertion order
+    * `Map.prototype.set(key, value)` - Sets the value for the `key` in the `Map`. Returns the `Map` object
+    * `Map.prototype.values()` - Returns an `Iterator` that contains the values for each element in insertion order
+    * `Map.prototype[@@iterator]()` - Returns an `Iterator` that contains an array of `[key, value]` for each element in insertion order
+* Examples
+  * Using the `Map` object
+    ```
+    var myMap = new Map();
+
+    var keyString = 'a string',
+        keyObj = {},
+        keyFunc = function() {};
+
+    // setting the values
+    myMap.set(keyString, "value associated with 'a string'");
+    myMap.set(keyObj, 'value associated with keyObj');
+    myMap.set(keyFunc, 'value associated with keyFunc');
+
+    myMap.size; // 3
+
+    // getting the values
+    myMap.get(keyString);    // "value associated with 'a string'"
+    myMap.get(keyObj);       // "value associated with keyObj"
+    myMap.get(keyFunc);      // "value associated with keyFunc"
+
+    myMap.get('a string');   // "value associated with 'a string'"
+                             // because keyString === 'a string'
+    myMap.get({});           // undefined, because keyObj !== {}
+    myMap.get(function() {}) // undefined, because keyFunc !== function () {}
+    ```
+  * Using `NaN` as `Map` keys
+    * `NaN` can be used as a key
+    ```
+    var myMap = new Map();
+    myMap.set(NaN, 'not a number');
+
+    myMap.get(NaN); // "not a number"
+
+    var otherNaN = Number('foo');
+    myMap.get(otherNaN); // "not a number"
+    ```
+  * Iterating `Maps` with `for...of`
+    ```
+    var myMap = new Map();
+    myMap.set(0, 'zero');
+    myMap.set(1, 'one');
+    for (var [key, value] of myMap) {
+      console.log(key + ' = ' + value);
+    }
+    // 0 = zero
+    // 1 = one
+
+    for (var key of myMap.keys()) {
+      console.log(key);
+    }
+    // 0
+    // 1
+
+    for (var value of myMap.values()) {
+      console.log(value);
+    }
+    // zero
+    // one
+
+    for (var [key, value] of myMap.entries()) {
+      console.log(key + ' = ' + value);
+    }
+    // 0 = zero
+    // 1 = one
+    ```
+  * Iterating `Maps` with `forEach()`
+    ```
+    myMap.forEach(function(value, key) {
+      console.log(key + ' = ' + value);
+    });
+    // Will show 2 logs; first with "0 = zero" and second with "1 = one"
+    ```
+  * Relation with `Array` objects
+    ```
+    var kvArray = [['key1', 'value1'], ['key2', 'value2']];
+
+    // Use the regular Map constructor to transform a 2D key-value Array into a map
+    var myMap = new Map(kvArray);
+
+    myMap.get('key1'); // returns "value1"
+
+    // Use the Array.from function to transform a map into a 2D key-value Array
+    console.log(Array.from(myMap)); // Will show you exactly the same Array as kvArray
+
+    // Or use the keys or values iterators and convert them to an array
+    console.log(Array.from(myMap.keys())); // Will show ["key1", "key2"]
+    ```
+  * Cloning and merging `Maps`
+    ```
+    var original = new Map([
+      [1, 'one']
+    ]);
+
+    var clone = new Map(original);
+
+    console.log(clone.get(1)); // one
+    console.log(original === clone); // false. Useful for shallow comparison 
+    ```
+    * The data itself is not cloned
+    * Maps can be merged
+    ```
+    var first = new Map([
+      [1, 'one'],
+      [2, 'two'],
+      [3, 'three'],
+    ]);
+
+    var second = new Map([
+      [1, 'uno'],
+      [2, 'dos']
+    ]);
+
+    // Merge two maps. The last repeated key wins.
+    // Spread operator essentially converts a Map to an Array
+    var merged = new Map([...first, ...second]);
+
+    console.log(merged.get(1)); // uno
+    console.log(merged.get(2)); // dos
+    console.log(merged.get(3)); // three
+    ```
+    * Maps can be merged with Arrays
+    ```
+    var first = new Map([
+      [1, 'one'],
+      [2, 'two'],
+      [3, 'three'],
+    ]);
+
+    var second = new Map([
+      [1, 'uno'],
+      [2, 'dos']
+    ]);
+
+    // Merge maps with an array. The last repeated key wins.
+    var merged = new Map([...first, ...second, [1, 'eins']]);
+
+    console.log(merged.get(1)); // eins
+    console.log(merged.get(2)); // dos
+    console.log(merged.get(3)); // three
+    ```
+
 ### <a name="Set">[Set](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set)</a>
 
 ## <a name="Forms">Mobile Web Forms</a>
