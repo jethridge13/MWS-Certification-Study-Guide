@@ -3113,6 +3113,20 @@ Filling out online forms, especially on mobile devices, can be difficult. To imp
 
 ### <a name="ClientSideValidation">[Client-Side Form Validation with HTML5](https://www.sitepoint.com/client-side-form-validation-html5/)</a>
 
+* The `type` Attribute
+  * `type` designates the type of input that is expected
+  * (Note: This has been covered much more in depth in previous sections)
+* The `pattern` Attribute
+  * Specifies a Regex for checking against the field value
+  * Example: Telephone number: `^\d{3}-\d{3}-\d{4}$` will match a `xxx-xxx-xxxx` phone number
+  * Example: Alpha-Numeric Values: `[a-zA-Z0-9]+`
+  * Note: I recommend [RegExr](regexr.com) for configuring regexes for use with this
+* Giving Hints
+  * `title` will provide a hint for when an error is reporting that the field is invalid or when the user hovers over the input
+* The `required` Attribute
+  * `required` is a boolean attribute that will mark the element as required
+  * The form will not submit if an element with `required` is empty
+
 ### <a name="DataFormValidation">[Data form validation](https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation)</a>
 
 ### <a name="HTMLForms">[HTML Forms](https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms)</a>
