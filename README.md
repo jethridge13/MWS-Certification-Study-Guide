@@ -3022,6 +3022,95 @@ Filling out online forms, especially on mobile devices, can be difficult. To imp
 
 ### <a name="ConstraintValidation">[Constraint Validation](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation)</a>
 
+* Intrinsic and basic constraints
+  * HTML5 basic constraints
+    * Use semantically appropriate values for the input's `type` attribute
+    * Set values on validation-related attributes
+  * Semantic input types
+  
+    Input type | Constraint description | Associated violation
+    --- | --- | ---
+    `<input type="URL">` | The value must be an absolute URL | Type mismatch contrainst violation
+    `<input type="email">` | Must be a valid email pattern | Type mismatch constraint violation
+  * Validation-related attributes
+  
+    Attribute | Input types supporting the attribute | Possible values | Constraint description | Associated violation
+    --- | --- | --- | --- | ---
+    `pattern` | `text`, `search`, `url`, `tel`, `email`, `password` | A Regex compiled with `global`, `ignoreCase`, and `multiline` flags disabled | The value must match the pattern | Pattern mismatch
+    `min` | `range`, `number`, `date`, `month`, `week`, `datetime`, `datetime-local`, `time`, | A valid number/date | The value must be >= the value | Underflow
+    `max` | `range`, `number`, `date`, `month`, `week`, `datetime`, `datetime-local`, `time` | A valid number/date | The value must be <= the value | Overflow
+    `required` | `text`, `search`, `url`, `tel`, `email`, `password`, `date`, `datetime`, `datetime-local`, `month`, `week`, `time`, `number`, `checkbox`, `radio`, `file`, `<select>*`. `<textarea>*` | None, is a boolean attribute | There must be a value if set | Missing
+    `step` | `date`, `month`, `week`, `datetime`, `datetime-local` `time`, `range`, `number` | An integer number of days/months/weeks/seconds | Unless the step is set to any literal, the value must be `min` + an integral multiple of the step | Step mismatch
+    `minlength` | `text`, `search`, `url`, `tel`, `email`, `password`, `<textarea>*` | An integer length | The number of characters must not be less than the value | Too short
+    `maxlength` | `text`, `search`, `url`, `tel`, `email`, `password`, `<textarea>*` | An integer length | The number of characters must not be greater than the value | Too long
+* Constraint validation process
+  * Constraint validation is done through the Constraint Validation API through the following
+    * A call to `checkValiditiy()` method of a form element which validates only that element
+    * `checkValidity()` on the form which checks all constraints
+    * Submitting the form
+* Complex constraints using HTML5 Constraint API
+  * The API can be used to have complex constraints or combine several fields
+  * Constraint combining several fields: Postal code validation (Example)
+    * Form
+    ```
+    <form>
+        <label for="ZIP">ZIP : </label>
+        <input type="text" id="ZIP"> 
+        <label for="Country">Country : </label>
+        <select id="Country">
+          <option value="ch">Switzerland</option>
+          <option value="fr">France</option>
+          <option value="de">Germany</option>
+          <option value="nl">The Netherlands</option>
+        </select>
+        <input type="submit" value="Validate">
+    </form>
+    ```
+    * Code
+    ```
+    function checkZIP() {
+      // For each country, defines the pattern that the ZIP has to follow
+      var constraints = {
+        ch : [ '^(CH-)?\\d{4}$', "Switzerland ZIPs must have exactly 4 digits: e.g. CH-1950 or 1950" ],
+        fr : [ '^(F-)?\\d{5}$' , "France ZIPs must have exactly 5 digits: e.g. F-75012 or 75012" ],
+        de : [ '^(D-)?\\d{5}$' , "Germany ZIPs must have exactly 5 digits: e.g. D-12345 or 12345" ],
+        nl : [ '^(NL-)?\\d{4}\\s*([A-RT-Z][A-Z]|S[BCE-RT-Z])$',
+                        "Nederland ZIPs must have exactly 4 digits, followed by 2 letters except SA, SD and SS" ]
+      };
+
+      // Read the country id
+      var country = document.getElementById("Country").value;
+
+      // Get the NPA field
+      var ZIPField = document.getElementById("ZIP");
+
+      // Build the constraint checker
+      var constraint = new RegExp(constraints[country][0], "");
+        console.log(constraint);
+
+
+      // Check it!
+      if (constraint.test(ZIPField.value)) {
+        // The ZIP follows the constraint, we use the ConstraintAPI to tell it
+        ZIPField.setCustomValidity("");
+      }
+      else {
+        // The ZIP doesn't follow the constraint, we use the ConstraintAPI to
+        // give a message about the format required for this country
+        ZIPField.setCustomValidity(constraints[country][1]);
+      }
+    }
+
+    window.onload = function () {
+        document.getElementById("Country").onchange = checkZIP;
+        document.getElementById("ZIP").oninput = checkZIP;
+    }
+    ```
+* Visual styling of constraint validation
+  * Controlling the look of elements
+    * `:required` and `:optional` CSS pseudo-classes - Elements that have `required` or don't, respectively
+    * `:valid` and `:invalid` CSS pseudo-classes - Elements that validate or don't, respectively
+
 ### <a name="ClientSideValidation">[Client-Side Form Validation with HTML5](https://www.sitepoint.com/client-side-form-validation-html5/)</a>
 
 ### <a name="DataFormValidation">[Data form validation](https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation)</a>
