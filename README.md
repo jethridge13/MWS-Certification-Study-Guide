@@ -2868,6 +2868,158 @@ Filling out online forms, especially on mobile devices, can be difficult. To imp
 
 ### <a name="AmazingForms">[Create Amazing Forms](https://developers.google.com/web/fundamentals/design-and-ux/input/forms/)</a>
 
+* Design efficient forms
+  * Avoid repeated actions
+  * Ask only for the necessary information
+  * Show form progress to users
+  * TL;DR
+    * Use existing data to pre-populate fields and be sure to enable autofill
+    * Use clearly labeled progress bars to help users get through multi-part forms
+    * Provide a visual calendar so users don't have to leave your site and jump to the calendar app on their smartphones
+  * Minimize repeated actions and fields
+    * Only use as many fields as necessary and take advantage of autofill
+    * Look for opportunities to pre-fill information you already know
+  * Show users how far along they are
+    * Progress bars and menus should accurately convey overall progress through multi-step forms and processes
+    * Users dislike overly complex forms and will leave because of them
+  * Provide visual calendars when selecting dates
+    * Provide a clear calendar so users can have more context when selecting dates
+* Choose the best input type
+  * Use the best input type for the current context. For example, number pads for number inputs
+  * TL;DR
+    * Choose the most appropriate input type for your data to simplify input
+    * Offer suggestions as the user types with the `datalist` element
+  * HTML5 input types
+    * HTML5 introduced a number of new input types
+    * url - For entering a URL
+    * tel - For entering a telephone number
+    * email - For entering email addresses
+    * search - A text input field styled in a way that is consistent with the platform's search field
+    * number - For numeric input
+    * range - For number input but the value is less important. It is displayed as a slider
+    * datetime-local - For entering a date and time value where the time zone is provided in the local time zone
+    * date - For entering a date with no time zone
+    * time - For entering a time with no time zone
+    * week - For entering a week with no time zone
+    * month - For entering a month with no time zone
+    * color - For picking a color
+  * Offer suggestions during input with datalist
+    * `datalist` is a list of suggested input values associated with a form field
+    * The browser uses it to suggest autocomplete options as the user types
+    ```
+    <label for="frmFavChocolate">Favorite Type of Chocolate</label>
+    <input type="text" name="fav-choc" id="frmFavChocolate" list="chocType">
+    <datalist id="chocType">
+      <option value="white">
+      <option value="milk">
+      <option value="dark">
+    </datalist>
+    ```
+* Label and name inputs properly
+  * Good forms provide semantic input types
+  * TL;DR
+    * Always use `label`s on form inputs and ensure they're visible when the field is in focus
+    * Use `placeholder`s to provide guidance about what you expect
+    * To help the browser auto-complete the form, use established `name`'s for elements and include the `autocomplete` attribute
+  * The importance of labels
+    * The `label` element provides direction to the user telling them what information is needed in a form element
+  * Label sizing and placement
+    * Labels and inputs should be large and easy to press
+    * Field labels should be above inputs in portrait and beside them in landscape
+  * Use placeholders
+    * The placeholder attribute provides a hint to the user about what is expected in the input
+    * Placeholders disappear as soon as the user starts typing. **They are not replacements for labels**
+  * Use metadata to enable auto-complete
+    * You can give hints to the browser by using the `name` and `autocomplete` attributes to for it to guess what should be autocompleted
+    * Chrome requires `input` elements to be wrapped in a `<form>` to enable auto-complete
+    ```
+    <label for="frmNameA">Name</label>
+    <input type="text" name="name" id="frmNameA"
+      placeholder="Full name" required autocomplete="name">
+
+    <label for="frmEmailA">Email</label>
+    <input type="email" name="email" id="frmEmailA"
+      placeholder="name@example.com" required autocomplete="email">
+
+    <label for="frmEmailC">Confirm Email</label>
+    <input type="email" name="emailC" id="frmEmailC"
+      placeholder="name@example.com" required autocomplete="email">
+
+    <label for="frmPhoneNumA">Phone</label>
+    <input type="tel" name="phone" id="frmPhoneNumA"
+      placeholder="+1-555-555-1212" required autocomplete="tel">
+      ```
+   * Recommended input `name` and `autocomplete` attribute values
+   
+     Content type | name attribute | autocomplete attribute
+     --- | --- | ---
+     Name | name fname mname lname | name(full name) given-name(first name) additional-name(middle name) family-name(last-name)
+     Email | email | email
+     Address | address city region province state zip zip2 postal country | street-address(one address input) address-line1 address-line2 (two addressess inputs) address-level1(state or province) address-level2(city) postal-code(zip code) country
+     Phone | phone mobile country-code area-code exchange suffic ext | tel
+     Credit Card | ccname cardnumber cvc ccmonth ccyear exp-date card-type | cc-name cc-number cc-csc cc-exp-month cc-exp-year cc-exp cc-type
+     Usernames | username | username
+     Passwords | password | current-password(for sign-in forms) new-password (for sign-up and password-change forms)
+   * The `autofocus` attribute
+     * Desktop browsers immediately move the focus to the input field
+     * Mobile browser ignore `autofocus` to prevent the keyboard from randomly appearing
+* Avoid common patterns that break Chrome Autofill
+  * Field validation pitfalls
+    * Autofill does not recognize client-side validation
+    * If using client-side validation, be sure to use the correct autofill keywords so data isn't lost or changed unexpectedly
+  * Use standard input fields 
+    * Use standard form controls instead of creating your own. This is better for accessibility and will work with Chrome Autofill more reliably
+  * Don't use fake placeholders in input fields
+    * Use `placeholder` instead of setting the value
+  * Don't copy the shipping address into the billing address section
+  * Ensure that autocomplete attributes are correct
+    * Verify spelling of autocomplete attributes is correct or else autofill might not work as expected
+* Provide real-time validation
+  * Validation tools should tell the user what they need to do before submitting the form
+  * TL;DR
+    * Leverage the browser's built-in validation patterns like `pattern`, `required`, `min`, `max`, etc.
+    * Use JavaScript and the Constraints Validation API for more complex validation requirements
+    * Show validation errors in real time and if the user tries to submit an invalid form, show all fields they need to fix
+  * Use these attributes to validate input
+    * The `pattern` attribute
+      * A regular expression used to validate an input field
+    * The `required` attribute
+      * The field must contain a value before the form can be submitted
+    * The `min`, `max`, and `step` attributes
+      * Defines the minimum and maximum values for number inputs as well as how they should be incredmented/decremented
+    * The `maxlength` attribute
+      * Specifies a maximum length for an input or textbox
+    * The `minlength` attribute
+      * Specifies a minimum length for an input or textbox
+    * The `novalidate` attribute
+      * Add this attribute to the `form` element to allow the user to submit the form even when the form contains invalid values
+  * Use JavaScript for more complex real-time validation
+    * The Constraint Validation API can be used for more complex validation
+    * `setCustomValidity()` - Sets a custom validation message and the `customError` property of the `ValidityState` object to `true`
+    * `validationMessage` - Returns a string with the reason the input failed the validation test
+    * `checkValidity()` - Returns `true` if the element satisfies all of its constraints, otherwise `false`. Deciding how to respond to `false` is up to the developer
+    * reportValidiity()` - Returns `true` if the element satisfies all of its constraints, otherwise `false`. Deciding how to respond to `false` is up to the user
+    * `validity` - Returns a `ValidityState` object representing the validity states of the element
+  * Set custom validation messages
+    * If a field fails, use `setCustomValidity()` to mark the field invalid and explain why
+  * Prevent form submission on invalid forms
+    * Use `checkValidity()` on the form to determine if it is valid
+  * Show feedback in real-time
+    * HTML5 has pseudo-classes that can be used for feedback
+    
+    Pseudo-class | Description
+    --- | ---
+    :valid | Sets the style for an input  when the value meets all of the validation requirements
+    :invalid | Sets the style for an input when the value does not meet all of the validation requirements
+    :required | Sets the style for an inputthat has the required attribute
+    :optional | Sets the style for an input that does not have the required attribute
+    :in-range | Sets the style for a number input where the value is in range
+    :out-of-range | Sets the style for a number input where the value is out of range
+    
+    * Validation happens immediately upon page load, which can mark some fields immediately as invalid
+      * This can be fixed by setting the class with JavaScript after it is visited
+      
+
 ### <a name="ConstraintValidation">[Constraint Validation](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation)</a>
 
 ### <a name="ClientSideValidation">[Client-Side Form Validation with HTML5](https://www.sitepoint.com/client-side-form-validation-html5/)</a>
