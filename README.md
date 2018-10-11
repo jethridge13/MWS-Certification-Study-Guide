@@ -3129,4 +3129,177 @@ Filling out online forms, especially on mobile devices, can be difficult. To imp
 
 ### <a name="DataFormValidation">[Data form validation](https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation)</a>
 
+* What is form validation? 
+  * Ensure that the user does not enter data that you are not expecting
+  * Different types of form validation
+    * Client-side validation
+      * JavaScript validation
+      * Built-in form validation
+    * Server-side validation
+      * Validation that occurs on the server after the data has been submitted
+      * Slower and less user-friendly than client-side validation but also ensures that the data isn't malicious or incorrect
+* Using built-in form validation
+  * Validation constraints on input elements - starting simple
+  * The required attribute
+    * `required` when used with form elements marks it as required and will show an error if not filled
+  * Validating against a regular expression
+    * Use `pattern` to validate against a regular expression
+  * Constraining the length of your entries
+    * `minlength` and `maxlength` can be used to constrain the length of text inputs
+  * Full example
+    * HTML
+    ```
+    <form>
+      <p>
+        <fieldset>
+          <legend>Title<abbr title="This field is mandatory">*</abbr></legend>
+          <input type="radio" required name="title" id="r1" value="Mr"><label for="r1">Mr.</label>
+          <input type="radio" required name="title" id="r2" value="Ms"><label for="r2">Ms.</label>
+        </fieldset>
+      </p>
+      <p>
+        <label for="n1">How old are you?</label>
+        <!-- The pattern attribute can act as a fallback for browsers which
+             don't implement the number input type but support the pattern attribute.
+             Please note that browsers that support the pattern attribute will make it
+             fail silently when used with a number field.
+             Its usage here acts only as a fallback -->
+        <input type="number" min="12" max="120" step="1" id="n1" name="age"
+               pattern="\d+">
+      </p>
+      <p>
+        <label for="t1">What's your favorite fruit?<abbr title="This field is mandatory">*</abbr></label>
+        <input type="text" id="t1" name="fruit" list="l1" required
+               pattern="[Bb]anana|[Cc]herry|[Aa]pple|[Ss]trawberry|[Ll]emon|[Oo]range">
+        <datalist id="l1">
+          <option>Banana</option>
+          <option>Cherry</option>
+          <option>Apple</option>
+          <option>Strawberry</option>
+          <option>Lemon</option>
+          <option>Orange</option>
+        </datalist>
+      </p>
+      <p>
+        <label for="t2">What's your e-mail?</label>
+        <input type="email" id="t2" name="email">
+      </p>
+      <p>
+        <label for="t3">Leave a short message</label>
+        <textarea id="t3" name="msg" maxlength="140" rows="5"></textarea>
+      </p>
+      <p>
+        <button>Submit</button>
+      </p>
+    </form>
+    ```
+    * CSS
+    ```
+    body {
+      font: 1em sans-serif;
+      padding: 0;
+      margin : 0;
+    }
+
+    form {
+      max-width: 200px;
+      margin: 0;
+      padding: 0 5px;
+    }
+
+    p > label {
+      display: block;
+    }
+
+    input[type=text],
+    input[type=email],
+    input[type=number],
+    textarea,
+    fieldset {
+    /* required to properly style form 
+       elements on WebKit based browsers */
+      -webkit-appearance: none;
+
+      width : 100%;
+      border: 1px solid #333;
+      margin: 0;
+
+      font-family: inherit;
+      font-size: 90%;
+
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+
+    input:invalid {
+      box-shadow: 0 0 5px 1px red;
+    }
+
+    input:focus:invalid {
+      outline: none;
+    }
+    ```
+  * Customized error messages
+    * The validation error messages that are shown can only be altered with JavaScript
+    * Use `setCustomValidity()` to customize them
+    * HTML
+    ```
+    <form>
+      <label for="mail">I would like you to provide me an e-mail</label>
+      <input type="email" id="mail" name="mail">
+      <button>Submit</button>
+    </form>
+    ```
+    * JavaScript
+    ```
+    var email = document.getElementById("mail");
+
+    email.addEventListener("input", function (event) {
+      if (email.validity.typeMismatch) {
+        email.setCustomValidity("I expect an e-mail, darling!");
+      } else {
+        email.setCustomValidity("");
+      }
+    });
+    ```
+* Validating forms using JavaScript
+  * The HTML constraint validation API
+  * Constraint validation API properties
+  
+  Property | Description
+  --- | ---
+  `validationMessage` | A localized message describing the validation constraints that the control does not satisfy
+  `validity` | A `ValidityState` object describing the validity of the element
+  `validity.customError` | Returns `true` if the element has a custom error, otherwise `false`
+  `validity.patternMismatch` | Returns `true` if the value does not match the provided pattern, otherwise `false`
+  `validity.rangeOverflow` | Returns `true` if the value is above the maximum, otherwise `false`
+  `validity.rangeUnderflow` | Returns `true` if the value is below the minimum, otherwise `false`
+  `validity.stepMismatch` | Returns `true` if the value does not fit the rules provided by the step attribute, otherwise `false`
+  `validity.tooLong` | Returns `true` if the element is longer than `maxlength`, otherwise `false`
+  `validity.typeMismatch` Returns `true` if the element's value is not the correct syntax, otherwise `false`
+  `validity.valid` | Returns `true` if the element has no validity problems, otherwise `false`
+  `validity.valueMissing` | Returns `true` if the element has no value but is a required field, otherwise `false`
+  `willValidate` | Returns `true` if the element will be validated when the form is submitted, otherwise `false`
+  
+  * Constraint validation API methods
+  
+  Method | Description
+  --- | ---
+  `checkValidity()` | Returns `true` if the element's value has no validity problems, otherwise `false`. If the element is invalid, causes an `invalid` event
+  `HTMLFormElement.reportValidity()` | Returns `true` if the element's child controls satisfy their validation constraints
+  `setCustomValidity(message)` | Adds a custom error message to the element. If the argument is the empty string, the custom error is cleared
+  * Validating forms without a built-in API
+    * If the Constraint Validation API isn't available or you don't want to use it, you can still validate using JS the old-fashioned way
+    * What kind of validation should I perform? 
+      * Determine how to validate your data. It's up to you. Remember that the form data is always text and is always provided as strings
+    * What should I do if the form does not validate? 
+      * How will you display errors? Will you allow the form to submit anyway?
+    * How can I help the user to correct invalid data?
+      * Provide as much helpful information as possible
+  * Remote validation
+    * Sometimes the form validity relies on information on the server (such as checking for a valid username)
+    * You can use an AJAX request to check the validity rather than have the user submit the form and receive back an error
+    * Remember, be careful when doing this to avoid exposing sensitive data
+    * Do not block the form from submitting if the AJAX request does not complete in time
+
 ### <a name="HTMLForms">[HTML Forms](https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms)</a>
